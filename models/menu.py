@@ -51,7 +51,7 @@ if 'auth' in globals():
         if auth.has_membership('admin_2') or auth.has_membership('admin') :
             response.menu += [
                 
-                  (T('Home'), False, URL('default', 'index?menu=principal'), []),
+                  #(T('Home'), False, URL('default', 'index?menu=principal'), []),
                   (T('Vendas'),False, None, [
                     (T('Caixa'), False, URL('caixa', 'etapa_1?menu=caixa'), []),
                     (T('historico'), False, URL('caixa', 'historico?menu=caixa'), [])
