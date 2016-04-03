@@ -32,28 +32,27 @@
 			ajax('update_ItenStatus',['transitory'])
 		}
 
-		//Qtde de volume
+		//-------  Qtde de volume  ------
 		$("#volumePedido").on('keyup',function(){
 			var v = $(this).val();	
-			console.log(v);
 			if ((v == "") || (v == '0')) {
 				$(this).addClass('vp_vazio');
-				$("#enviar").addClass('bt_vazio').text('Registrar');
+				$('#etiquetas').attr('disabled',true);
+				$('#transitory').val(v+";"+{{=cod}});
+				ajax('qtdeVolume', ['transitory']);
 			}else{
 				$(this).removeClass('vp_vazio');
-				$("#enviar").removeClass('bt_vazio').text('Alterar');
-
+				$('#etiquetas').attr('disabled',false);
+				$('#transitory').val(v+";"+{{=cod}});
+				ajax('qtdeVolume', ['transitory']);
 			}
-		})
+		});
 
-		//enviar volume
-		$('#enviar').on('click',function(){
-			var v = $('#volumePedido').val();
-			$('#transitory').val(v+";"+{{=cod}});
-			$(this).text('Gravando...');
-			ajax('qtdeVolume', ['transitory']);
-			$(location).attr('href',"abertos?menu=operacional");
-		})
+		$("#etiquetas").on('click',function(){
+			var qtd = $('#volumePedido').val();
+			console.log(qtd);
+	    });
+	    //-------  fim Qtde de volume  ------
 
   	});
 </script>
@@ -158,20 +157,24 @@
 				</tbody>
 			</thead>
 		</table>
+
 		<div class="form-inline qtdeVolume">
 		  <div class="form-group">
 		    <label>Qtde Pacote : </label>
-		    
 			{{vlm=db(db.historicoVendas.codigoVenda == cod).select('volume')[0].volume}}
-			{{if vlm == '0':}}
+			{{print vlm}}
+			{{if vlm == 0  or vlm == None:}}
 			    <input type="number" class="form-control vp_vazio" id="volumePedido" min="0" max="20">
-			    <button type="text" id="enviar"  class="btn btn-default bt_vazio">Registrar</button>
+				<a class="btn btn-default" type="text" href='abertos?menu=operacional' >voltar</a>
+			    <button type="text" id="etiquetas" disabled="disabled">Imprimir etiquetas</button>
 			{{else:}}
 				<input type="number" class="form-control" id="volumePedido" value="{{=vlm}}" min="0" max="20">
-			    <button type="text" id="enviar" class="btn btn-default">Alterar</button>
+				<a class="btn btn-default" type="text" href='abertos?menu=operacional' >voltar</a>
+			    <button type="text" id="etiquetas">Imprimir etiquetas</button>
 			{{pass}}
 		</div>	
 		 
 	</div>
 </div><!-- fim do animated fadein -->
 </div>
+<br>
