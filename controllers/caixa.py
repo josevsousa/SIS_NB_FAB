@@ -20,6 +20,7 @@ def etapa_1():
         )
     if form.process().accepted:
         session.cliente = form.vars.Cliente
+        print form.vars.Cliente
         session.representante = db(db.representantes.nome == form.vars.Representante ).select('id')[0].id
         #cria codigo da venda  
         if not session.codigo_venda:
@@ -121,8 +122,7 @@ def fecharVenda():
     index = index.split(";")
     # dados a gravar no db
     codigoVenda = session.codigo_venda
-    idCliente = db(Clientes.nome == session.cliente ).select('id')[0].id
-       
+    idCliente = db(Clientes.nome == '%s'%session.cliente ).select('id')[0].id
     tipoVenda = index[0]
     valorVenda = index[1]
     valorDesconto = index[2]
@@ -142,8 +142,10 @@ def fecharVenda():
     if valorDesconto == '':
         valorDesconto = '0.00'
         pass
-    db.historicoVendas.insert(codigoVenda = codigoVenda,clienteEmail = idCliente,tipoVenda = tipoVenda,valorVenda = valorVenda,valorDesconto = valorDesconto,  vendedor = vendedor, representante = representante ) 
+        db.historicoVendas.insert(codigoVenda = codigoVenda,clienteEmail = idCliente,tipoVenda = tipoVenda,valorVenda = valorVenda,valorDesconto = valorDesconto,  vendedor = vendedor, representante = representante ) 
+    
     viewDesc = ""
+    
     if valorDesconto != "0.00":
         valorT = (float(valorVenda) + float(valorDesconto))
         viewDesc = "<h3><b>Total</b> : R$ %.2f - <b>Desconto</b> : <span>R$ %.2f</span></h3>"%(valorT, float(valorDesconto))

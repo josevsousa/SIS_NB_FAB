@@ -12,7 +12,7 @@
 	    });
 	    $('.cadastroFull').on('click', function(){
 	    	var cod = $(this).parent().parent().children('td')[1].textContent
-	    	var dataSolicitacao = $(this).parent().parent().children('td')[2].textContent
+	    	var dataSolicitacao = $(this).parent().parent().children('td')[3].textContent
 			$(location).attr('href',"iten?menu=operacional&cod="+cod+"&dataSolicitacao="+dataSolicitacao);//redireciona a pagina
 	    });
 

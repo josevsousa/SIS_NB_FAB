@@ -19,10 +19,14 @@ def iten():
 	data = request.vars.dataSolicitacao
 	grid = db(Itens.codigoVenda == cod).select()
 	head = H3("COD: [ %s ]  aberto em %s"%(cod, data))
-
-
 	#pegar lista do historicoVendas.itensVendaPendente e jogar na tela 
 	return dict(head=head,grid=grid,cod=cod)
+
+def printEtiqueta():	
+	cod = request.vars.cod
+	qtd = request.vars.qtd
+	#head = H3("QTDE DE IMPRESSÃO: [ %s ] Para o pedido COD:[ %s ]"%(qtd, cod))
+	return dict(cod=cod,qtd=qtd)
 
 def update_ItenStatus():
 	from datetime import datetime

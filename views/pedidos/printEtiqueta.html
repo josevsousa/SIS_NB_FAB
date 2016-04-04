@@ -1,0 +1,131 @@
+{{extend 'layoutLojinha.html'}}
+<style>
+	hr {
+    	margin-top: 0px;
+	}
+	.titVolt {
+	    display: inline-flex;
+	}
+	.titVolt h3 {
+    	padding: 3px 14px;
+	}
+	.dl-horizontal.h {
+    		margin-bottom: 0px;
+	}
+	address{
+		margin-bottom: 	5px !important;
+	}
+	img#logoEtiqueta {
+    		width: 60%;
+    		margin-top: 5px;
+		}
+
+	.etq {
+	    width: 50%;
+	    float: left;
+	    padding: 6px;
+	}
+</style>
+<div class="animated fadeIn">
+	<div class="titVolt">
+			<nav>
+			  <ul class="pager">
+			    <li class="previous"><a href="{{=URL('pedidos','abertos?menu=operacional')}}"><span aria-hidden="true">&larr;</span> voltar</a></li>
+			    <!-- <li class="next"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li> -->
+			  </ul>
+			</nav>
+			<h3>TELA DE IMPRESSÃO DE ETIQUETAS</h3>
+	</div>
+</div>
+<hr>
+
+<div class="alert alert-warning alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  	<strong>COD: </strong> {{=cod}} <strong> Quantidade de etiquetas: </strong> {{=qtd}}
+</div>
+
+
+<!--div class="form-group has-success has-feedback">
+  <label class="control-label">Input with success</label>
+  <input type="text" class="form-control">
+  <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true">
+</div>
+<div class="form-group has-error has-feedback">
+  <label class="control-label">Input with error</label>
+  <input type="text" class="form-control" >
+  <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true">
+</span-->
+	
+<!-- ETIQUETA 2 LADOS-->
+<div class="etq">
+	<ul class="list-group etiqueta">
+		<li class="list-group-item">
+		<dl class="dl-horizontal h">	
+			<dt><img id="logoEtiqueta" src="{{=URL('static','images/logoPrint.png')}}" alt=""></dt>
+			<dd>	
+				<address>
+		  				<strong>NALLUBABY IND. LTDA</strong> <br>
+		  				Rua Fernandes Vieira - 234, José Pinheiro<br>
+		  				Campina Grande, PB 058470-490<br>
+		  				<abbr title="Phone">Fixo:</abbr> (83) 3322-8273
+				</address>
+			</dd>	
+		</dl>
+		</li>
+		<li class="list-group-item">
+			<dl class="dl-horizontal">
+  				<dt>CÓDIGO PEDIDO</dt>
+  				<dd>3333333333</dd>
+			</dl>
+			<dl class="dl-horizontal h">
+  				<dt>REMETENTE</dt>
+  				<dd>	
+					<address>
+							<strong>BEBE CONFORTO</strong><br>
+			  				Rua Fernandes Vieira - 234, José Pinheiro<br>
+			  				Campina Grande, PB 058470-490<br>
+			  				<abbr title="Phone">Fixo:</abbr> (83) 3322-8273
+
+					</address>
+				</dd>
+			</dl>
+		</li>
+	</ul>
+</div>
+
+<div class="etq">
+	<ul class="list-group etiqueta">
+		<li class="list-group-item">
+		<dl class="dl-horizontal h">	
+			<dt><img id="logoEtiqueta" src="{{=URL('static','images/logoPrint.png')}}" alt=""></dt>
+			<dd>	
+				<address>
+		  				<strong>NALLUBABY IND. LTDA</strong> <br>
+		  				Rua Fernandes Vieira - 234, José Pinheiro<br>
+		  				Campina Grande, PB 058470-490<br>
+		  				<abbr title="Phone">Fixo:</abbr> (83) 3322-8273
+				</address>
+			</dd>	
+		</dl>
+		</li>
+		<li class="list-group-item">
+			<dl class="dl-horizontal">
+  				<dt>CÓDIGO PEDIDO</dt>
+  				<dd>3333333333</dd>
+			</dl>
+			<dl class="dl-horizontal h">
+  				<dt>REMETENTE</dt>
+  				<dd>	
+					<address>
+							<strong>BEBE CONFORTO</strong><br>
+			  				Rua Fernandes Vieira - 234, José Pinheiro<br>
+			  				Campina Grande, PB 058470-490<br>
+			  				<abbr title="Phone">Fixo:</abbr> (83) 3322-8273
+
+					</address>
+				</dd>
+			</dl>
+		</li>
+	</ul>
+</div>
+<!-- FIM ETIQUETA 3 LADOS -->

@@ -50,7 +50,9 @@
 
 		$("#etiquetas").on('click',function(){
 			var qtd = $('#volumePedido').val();
-			console.log(qtd);
+			if (qtd != '' || qtd != '0') {
+				$(location).attr('href',"printEtiqueta?menu=operacional&cod={{=cod}};qtd="+qtd);
+			}	
 	    });
 	    //-------  fim Qtde de volume  ------
 
