@@ -19,6 +19,7 @@
 '>=': '>=',
 '@markmin\x01An error occured, please [[reload %s]] the page': 'Ocorreu um erro, por favor [[reload %s]] a página',
 '@markmin\x01Number of entries: **%s**': 'Number of entries: **%s**',
+'A record change was detected. Consecutive update self-submissions are not allowed. Try re-submitting or refreshing the form page.': 'A record change was detected. Consecutive update self-submissions are not allowed. Try re-submitting or refreshing the form page.',
 'Aberto': 'Aberto',
 'About': 'Sobre',
 'Access Control': 'Controle de Acesso',

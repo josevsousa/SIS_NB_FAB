@@ -104,8 +104,6 @@ class IS_CPF_OR_CNPJ(object):
                    else:
                       return (value, 'CNPJ não é válido')
                
-
-
         except:
             return (value, 'algum erro'+str(value))
     def formatter(self, value):
@@ -307,7 +305,6 @@ class IS_TELEFONE(object):
         else:
             formatado = value
         return formatado
-
 # fim validade telefone
 
 # validade dinheiro

@@ -20,6 +20,29 @@
 		$("#SelectItensTipoPagamento").on('change',function(e){
 			console.log(e)
 		});
+
+		/*  formatNome
+			Recebe o valor de um input do tipo text
+			Formata a palavra para a primeira letra maiuscula e o resto 
+			minuscula, e tira os espaços em branco do inicio e do fim	
+		*/
+		formatNome($('#clientes_nome'))
+		function formatNome(id_input){
+			$(id_input).on('blur', function() {
+				var valor = $(this).val(); //pega o valor do input
+				if (valor != '') {
+					valor = valor.trimLeft();  //tira espaço em branco do inicio 
+					valor = valor.trimRight(); //tira espaço em branco do fim
+					PL = valor[0]; //pega primeira letra
+					PL = PL.toUpperCase(); //primeira letra em maiúscula
+					RL = valor.substring(1); //resto da palavra
+					RL = RL.toLowerCase(); //resto da palavra tudo minúsculo
+					valor = PL+RL
+					$(this).val(valor);
+				}
+			});;
+		}/*fim do formatNome*/	
+
 	});
 </script>
 <style>
