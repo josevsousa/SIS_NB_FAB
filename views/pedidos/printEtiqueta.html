@@ -27,6 +27,11 @@
 	    float: left;
 	    padding: 6px;
 	}
+	.par_etiqueta{
+    	width: 100%;
+    	display: -webkit-inline-box;
+    	height: 150px;
+	}
 	@media print { 
    		#nav_home, .noPrint{display: none}	
    		.h dt{
@@ -36,6 +41,13 @@
 	a.btn.btn-info.btn-lg.btPrint {
     	display: inline-table;
     	margin: 10px;
+	}
+	.etiqueta .list-group-item {
+    	border-color: #444444;
+	}
+	.quebraPagina {
+	    display: -webkit-box;
+	    margin-bottom: 5%;
 	}
 </style>
 <div class="animated fadeIn noPrint">
@@ -71,46 +83,80 @@
   <input type="text" class="form-control" >
   <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true">
 </span-->
-<!-- ETIQUETA 2 LADOS-->
-{{for i in range((int(qtd)*2)):}}
-<div class="etq">
-	<ul class="list-group etiqueta">
-		<li class="list-group-item">
-			<dl class="dl-horizontal h">	
-				<dt><img id="logoEtiqueta" src="{{=URL('static','images/logoPrint.png')}}" alt=""></dt>
-				<dd>	
-					<address>
-			  				<strong>NALLUBABY IND. LTDA</strong> <br>
-			  				Rua Fernandes Vieira - 234, José Pinheiro<br>
-			  				Campina Grande, PB 058470-490<br>
-			  				<abbr title="Phone">Fixo:</abbr> (83) 3322-8273
-					</address>
-				</dd>	
-			</dl>
-		</li>
-		<li class="list-group-item">
-			<dl class="dl-horizontal">
-  				<dt>CÓDIGO PEDIDO</dt>
-  				<dd>{{=cod}}</dd>
-			</dl>
-			<dl class="dl-horizontal h">
-  				<dt>REMETENTE</dt>
-  				<dd>	
-					<address>
+<!-- ETIQUETA 2 LADOS   -->
+
+{{for i in range(int(qtd)):}}
+<div class='quebraPagina'>
+	<div class="etq">
+		<ul class="list-group etiqueta">
+			<li class="list-group-item">
+				<dl class="dl-horizontal h">	
+					<dt><img id="logoEtiqueta" src="{{=URL('static','images/logoPrint.png')}}" alt=""></dt>
+					<dd>	
+						<address>
+				  				<strong>NALLUBABY IND. LTDA</strong> <br>
+				  				Rua Fernandes Vieira - 234<br> José Pinheiro<br>
+				  				Campina Grande, PB 058470-490<br>
+				  				<abbr title="Phone">Fixo:</abbr> (83) 3322-8273
+						</address>
+					</dd>	
+				</dl>
+			</li>
+			<li class="list-group-item">
+				<dl >
+	  				<dt>COD: {{=cod}}</dt>
+				</dl>
+				<dl class="h">
+	  				<dt>REMETENTE</dt>
+	  				<dd>	
+						<address>
 							<strong>{{=(cliente[0].nome).upper()}}</strong><br>
 			  				{{=cliente[0].endereco}} - {{=cliente[0].numero}}, {{=cliente[0].bairro}}<br>
 			  				{{=cliente[0].cidade}}, {{=cliente[0].uf}} CEP({{=cliente[0].cep}})<br>
-			  				{{if cliente[0].celular != '':}}
-			  					<abbr title="Phone">Cel:</abbr> {{=cliente[0].celular}} - {{=cliente[0].operadora}}<br>
-			  				{{pass}}
-			  				{{if cliente[0].fixo != '':}}
-			  					<abbr title="Phone">Fixo:</abbr> {{=cliente[0].fixo}} 
-							{{pass}}
-					</address>
-				</dd>
-			</dl>
-		</li>
-	</ul>
-</div>
+			  				<abbr title="Phone">Cel:</abbr> {{=cliente[0].celular}} - {{=cliente[0].operadora}}<br>
+			  				<abbr title="Phone">Fixo:</abbr> {{=cliente[0].fixo}} 
+						</address>
+					</dd>
+				</dl>
+			</li>
+		</ul>
+	</div>
+	<div class="etq">
+		<ul class="list-group etiqueta">
+			<li class="list-group-item">
+				<dl class="dl-horizontal h">	
+					<dt><img id="logoEtiqueta" src="{{=URL('static','images/logoPrint.png')}}" alt=""></dt>
+					<dd>	
+						<address>
+				  				<strong>NALLUBABY IND. LTDA</strong> <br>
+				  				Rua Fernandes Vieira - 234<br> José Pinheiro<br>
+				  				Campina Grande, PB 058470-490<br>
+				  				<abbr title="Phone">Fixo:</abbr> (83) 3322-8273
+						</address>
+					</dd>	
+				</dl>
+			</li>
+			<li class="list-group-item">
+				<dl>
+	  				<dt>COD: {{=cod}}</dt>
+				</dl>
+				<dl class=" h">
+	  				<dt>REMETENTE</dt>
+	  				<dd>	
+						<address>
+							<strong>{{=(cliente[0].nome).upper()}}</strong><br>
+			  				{{=cliente[0].endereco}} - {{=cliente[0].numero}}, {{=cliente[0].bairro}}<br>
+			  				{{=cliente[0].cidade}}, {{=cliente[0].uf}} CEP({{=cliente[0].cep}})<br>
+			  				<abbr title="Phone">Cel:</abbr> {{=cliente[0].celular}} - {{=cliente[0].operadora}}<br>
+			  				<abbr title="Phone">Fixo:</abbr> {{=cliente[0].fixo}} 
+		
+						</address>
+					</dd>
+				</dl>
+			</li>
+		</ul>
+	</div>
+
+</div>			
 {{pass}}
 <!-- FIM ETIQUETA 3 LADOS -->
