@@ -11,9 +11,10 @@
 	        //"lengthMenu": [[25, 50, -1], [25, 50, "All"]] 
 	    });
 	    $('.cadastroFull').on('click', function(){
-	    	var cod = $(this).parent().parent().children('td')[1].textContent
-	    	var dataSolicitacao = $(this).parent().parent().children('td')[3].textContent
-			$(location).attr('href',"iten?menu=operacional&cod="+cod+"&dataSolicitacao="+dataSolicitacao);//redireciona a pagina
+	    	var cod = $(this).parent().parent().children('td')[1].textContent;
+	    	var dataSolicitacao = $(this).parent().parent().children('td')[3].textContent;
+	    	var cliente = $(this).parent().parent().children('td')[2].textContent;
+			$(location).attr('href',"iten?menu=operacional&cod="+cod+"&dataSolicitacao="+dataSolicitacao+"&cliente="+cliente);//redireciona a pagina
 	    });
 
 	    $('#finalizado').hide();

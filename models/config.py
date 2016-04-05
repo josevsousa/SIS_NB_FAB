@@ -39,12 +39,18 @@ class FORMAT_NOME(object):
 
     def __call__(self, value):
         try:
-            #nome = str(value)
+            value = str(value)
             #if len(nome) >= 30:
             #    return (value, 'o nome tem mais de 10 dígitos')
             #else:
             #    return (nome, None)
-            return (value, None) 
+            if len(value) < 4:
+                return (value, 'Quantidade de valor menor que 4')
+            else:
+                value = value+'--'
+                return (value, None)
+                pass
+             
         except:
             return (value, 'algum erro' + str(value))
 
