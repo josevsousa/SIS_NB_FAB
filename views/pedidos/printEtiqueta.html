@@ -48,10 +48,6 @@
 	.etiqueta .list-group-item {
     	border-color: #444444;
 	}
-	.quebraPagina {
-	    display: -webkit-box;
-	    margin-bottom: 10%;
-	}
 </style>
 <div class="animated fadeIn noPrint">
 	<div class="titVolt">
@@ -159,7 +155,9 @@
 			</li>
 		</ul>
 	</div>
-
+		{{if (i%2) == 1:}}
+			<div class="tabPage" style="page-break-after: always;"> {{=i+1}} etiquetas.</div>
+		{{pass}}
 </div>			
 {{pass}}
 <!-- FIM ETIQUETA 3 LADOS -->
