@@ -53,7 +53,7 @@ def produto():
 
 
     valorUn = (db(db.produtos.codigo_produto == codigo).select('preco_produto_lojinha'))[0].preco_produto_lojinha
-    valorTotal = int(qtde)*float(valorUn)
+    valorTotal = int(qtde)*round(float(valorUn),2)
     Itens.insert(codigoVenda=session.codigo_venda,codigoIten=codigo,produto=produto,quantidade=qtde,valorUnidade=valorUn,valorTotal=valorTotal)
     #redirect(URL('etapa_2?menu=caixa')) 
  
