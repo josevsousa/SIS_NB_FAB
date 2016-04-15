@@ -111,7 +111,7 @@ Produtos = db.define_table('produtos',
     Field('codigo_produto',label="Código"), #unique = nao repetir
     Field('nome_produto', requires = IS_NOT_EMPTY(error_message="Nome obrigatório"), label="Nome" ),
     Field('preco_produto_lojinha','double', label="R$"),
-    Field('preco_produto_lojinha_backup',readable=False, writable=False),
+    Field('preco_produto_lojinha_backup','double',default=0.00, readable=False, writable=False),
     Field('dataGravado','datetime', default=request.now, label="Data", readable=False,  writable=False),
     Field('tamanho', label="Tamanho", default="P/M/G"),
     Field('foto_produto','upload', label="Foto"),
@@ -186,8 +186,7 @@ db.clientes.cnpj_cpf.requires = IS_CPF_OR_CNPJ(), IS_NOT_IN_DB(db, db.clientes.c
 db.clientes.nome.requires = IS_NOT_IN_DB(db, db.clientes.nome, error_message = 'Usuario invalido')
 db.clientes.uf.requires = IS_IN_SET(UF, error_message="UF invalido!!!")
 db.clientes.operadora.requires = IS_IN_SET(OPERADORA, error_message="Operadora invalida!!!")
-db.clientes.tipo.requires = IS_IN_SET(TIPO, error_message="Tipo inválido!!!")
-#db.clientes.cidade.requires = FORMAT_NOME()
+db.clientes.tipo.requires = IS_IN_SET(TIPO, error_message="Tipo inválido!!!") 
 
 
 

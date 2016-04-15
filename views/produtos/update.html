@@ -2,6 +2,7 @@
 
 <script>
 	$(document).ready(function(){
+		$("#produtos_preco_produto_lojinha").maskMoney({ allowNegative: true, thousands:'', decimal:'.'});
     	$("#delete_record__row, .w2p_fw span").hide();
 		$('input[type=text]').addClass('form-control ip_text');
 		$('form').addClass('formEditar');

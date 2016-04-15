@@ -9,11 +9,9 @@
 		$('#produtos_tamanho').addClass('form-control');
 		$('form').addClass('formEditar');
 		$('input[type=submit]').val('Cadastrar');
-		$("tbody tr:nth-child(4)").css('display','none')
-		
+		{{newCodigo = int(db(Produtos.id>0).select().last().codigo_produto)+1}}
 		// incrementa o ultimo numero de funcionario
-		{{x = len(db(Produtos.id>0).select())+1}}
-		$('#produtos_codigo_produto').val('{{=str(x)}}')
+		$('#produtos_codigo_produto').val('{{=newCodigo}}');
 
 
 	});

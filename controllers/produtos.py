@@ -1,6 +1,15 @@
 @auth.requires_membership('admin')
 def cadastrarProdutos():
 	menu = 'produtos'
+
+
+
+
+	#max = db.produtos.id.max()
+	#max_id = db().select(max).first()[max]
+	#ultimo_evento = db.eventos[max_id]
+		
+
 	return dict(formCadastro=crud.create(db.produtos))
 
 @auth.requires_login()

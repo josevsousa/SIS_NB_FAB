@@ -10,11 +10,19 @@
 	        }
 	        //"lengthMenu": [[25, 50, -1], [25, 50, "All"]] 
 	    });
+
+		$('#dataTable2').DataTable({
+	        // "scrollX": true,
+	        "order": [ 0, 'dec' ],
+	        "language": {
+	          "url": "{{=URL('static','js/tradutorTable.json')}}"
+	        }
+	        //"lengthMenu": [[25, 50, -1], [25, 50, "All"]] 
+	    });
 	    $('.cadastroFull').on('click', function(){
-	    	var cod = $(this).parent().parent().children('td')[1].textContent;
-	    	var dataSolicitacao = $(this).parent().parent().children('td')[3].textContent;
-	    	var cliente = $(this).parent().parent().children('td')[2].textContent;
-			$(location).attr('href',"iten?menu=operacional&cod="+cod+"&dataSolicitacao="+dataSolicitacao+"&cliente="+cliente);//redireciona a pagina
+	    	var cod = $(this).parent().parent().children('td')[1].textContent
+	    	var dataSolicitacao = $(this).parent().parent().children('td')[3].textContent
+			$(location).attr('href',"iten?menu=operacional&cod="+cod+"&dataSolicitacao="+dataSolicitacao);//redireciona a pagina
 	    });
 
 	    $('#finalizado').hide();
@@ -48,62 +56,142 @@
 	    margin-left: 11px;
 	    color: #0CF34C;
 	}
+	.fontVermelha{color:#F44336 !important;}
+	.fontVerde{color:#03B709 !important;}
 </style>
 
 <div id="minhaTabela" class="animated fadeIn" >
-	<h3>Lista de taréfas operacional [ <small>Separar os produtos da lista</small> ]</h3>
-	<table id="dataTable" class="table table-striped hover" cellspacing="0" width="100%" >
-		<thead>
-			<tr>
-				<th style="display:none"></th>
-				<th>Codigo Pedido</th>
-				<th>CLiente</th>
-				<th>Data Solicitaçao</th>
-				<th>Status Itens</th>
-				<th>Pacotes</th>
-				<th></th>
-			</tr>
-			<tbody>
-				{{from datetime import date}}
-				{{for pedido in pedidos:}}
-					{{if pedido.deletado != True:}}
-						{{if pedido.status_venda != 'OK':}}   
-							{{venda =  (pedido.dataVenda).strftime('%Y,%m,%d')
-							venda = venda.split(',')
-							atrazo = date.today() - date(int(venda[0]),int(venda[1]),int(venda[2]))
-							
-							if atrazo.days > 5:
-								atrazo = "<span class='at atrazo_vermelho'>%s</span>"%atrazo.days
-							else:
-								atrazo = "<span class='at atrazo_amarelo'>%s</span>"%atrazo.days
-								pass	
-							atrazo = XML(atrazo) }}
-						{{else:}}	
-						{{atrazo = XML("<span class='glyphicon glyphicon-ok'></span>")}}
-						{{pass}}	
-						<tr>
-							<td style="display:none">{{=pedido.id}}</td>
-							<td>{{=pedido.codigoVenda}}</td>
-							<td>{{=db(Clientes.id == pedido.clienteEmail).select('nome')[0].nome}}</td>
-							<td>{{=(pedido.dataVenda).strftime('%d/%m/%Y as %H:%M:%S')}}{{=atrazo}}</td>
-							<td>{{=pedido.status_venda}}</td>
-							{{if (pedido.volume != None) and (pedido.volume != 0):}}
-								<td id="volumePendente">
-									<span class="at atrazo_verde">{{=pedido.volume}}</span>
-								</td>
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		<!-- BASE 1-->
+		<div class="panel panel-default ListaPendentes">
+			<div class="panel-heading" role="tab" id="headingOne">
+		      <h4 class="panel-title">
+		        <a role="button" class="fontVermelha" id="repress" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+		          <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> 	 PENDENTES
+		        </a>
+		      </h4>
+		    </div>
+			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+			    <div class="panel-body ">
+			    	<!-- TABELA PENDENTE -->
+					<table id="dataTable" class="table table-striped hover" cellspacing="0" width="100%" >
+						<thead>
+							<tr>
+								<th style="display:none"></th>
+								<th>Codigo Pedido</th>
+								<th>CLiente</th>
+								<th>Data Solicitaçao</th>
+								<th>Status Itens</th>
+								<th>Pacotes</th>
+								<th></th>
+							</tr>
+							<tbody>
+								{{from datetime import date}}
+								{{for pedido in pedidos:}}<!--FOR PEDIDOS-->
+									{{if (pedido.deletado != True):}}<!-- IF PEDIDOS.DELETADOS-->
+										{{if (pedido.status_venda != 'OK') or ((pedido.volume == 0) or (pedido.volume == None)):}}  
+											{{if pedido.status_venda != 'OK':}}   
+												{{venda =  (pedido.dataVenda).strftime('%Y,%m,%d')
+												venda = venda.split(',')
+												atrazo = date.today() - date(int(venda[0]),int(venda[1]),int(venda[2]))
+												
+												if atrazo.days > 14:
+													atrazo = "<span class='at atrazo_vermelho'>%s</span>"%atrazo.days
+												else:
+													atrazo = "<span class='at atrazo_amarelo'>%s</span>"%atrazo.days
+													pass	
+												atrazo = XML(atrazo) }}
+											{{else:}}	
+											{{atrazo = XML("<span class='glyphicon glyphicon-ok'></span>")}}
+											{{pass}}	
+											
+											<tr>
+												<td style="display:none">{{=pedido.id}}</td>
+												<td>{{=pedido.codigoVenda}}</td>
+												<td>{{=db(Clientes.id == pedido.clienteEmail).select('nome')[0].nome}}</td>
+												<td>{{=(pedido.dataVenda).strftime('%d/%m/%Y as %H:%M:%S')}}{{=atrazo}}</td>
+												<td>{{=pedido.status_venda}}</td>
+												{{if (pedido.volume != None) and (pedido.volume != 0):}}
+													<td id="volumePendente">
+														<span class="at atrazo_verde">{{=pedido.volume}}</span>
+													</td>
 
-							{{else:}}
-								<td id="volumePendente">
-									<span class="at qtdePendente">F</span>
-								</td>
-							{{pass}}
-							
-							<td><button type="button" class="btn btn-default btn-xs cadastroFull"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button></td>
-						</tr>
-							
-					{{pass}}					
-				{{pass}}
-			</tbody>
-		</thead>
-	</table>
+												{{else:}}
+													<td id="volumePendente">
+														<span class="at qtdePendente">F</span>
+													</td>
+												{{pass}}
+												
+												<td><button type="button" class="btn btn-default btn-xs cadastroFull"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button></td>
+											</tr>		
+										{{pass}}
+
+									{{pass}}<!--FIM IF PEDIDOS.DELETADOS-->					
+								{{pass}}<!--FIM FOR PEDIDOS-->
+							</tbody>
+						</thead>
+					</table><!-- FIM TABELA PENDENTE -->
+				</div>
+			</div>
+		</div><!-- FIM DA BASE 1-->
+		<!-- BASE 2-->
+		<div class="panel panel-default">
+		    <div class="panel-heading" role="tab" id="headingTwo">
+		      <h4 class="panel-title">
+		        <a class="collapsed cheques_boletos fontVerde"  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+		          <span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> FINALIZADOS
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+	          	<div class="panel-body">
+	          		<!-- TABELA PENDENTE -->
+					<table id="dataTable2" class="table table-striped hover" cellspacing="0" width="100%" >
+						<thead>
+							<tr>
+								<th style="display:none"></th>
+								<th>Codigo Pedido</th>
+								<th>CLiente</th>
+								<th>Data Solicitaçao</th>
+								<th>Status Itens</th>
+								<th>Pacotes</th>
+								<th></th>
+							</tr>
+							<tbody>
+								{{from datetime import date}}
+								{{for pedido in pedidos:}}<!--FOR PEDIDOS-->
+									{{if (pedido.deletado != True):}}<!-- IF PEDIDOS.DELETADOS-->
+										{{if (pedido.status_venda == 'OK') and ((pedido.volume != 0) and (pedido.volume != None)):}}  
+											{{atrazo = XML("<span class='glyphicon glyphicon-ok'></span>")}}
+											
+											<tr>
+												<td style="display:none">{{=pedido.id}}</td>
+												<td>{{=pedido.codigoVenda}}</td>
+												<td>{{=db(Clientes.id == pedido.clienteEmail).select('nome')[0].nome}}</td>
+												<td>{{=(pedido.dataVenda).strftime('%d/%m/%Y as %H:%M:%S')}}{{=atrazo}}</td>
+												<td>{{=pedido.status_venda}}</td>
+												{{if (pedido.volume != None) and (pedido.volume != 0):}}
+													<td id="volumePendente">
+														<span class="at atrazo_verde">{{=pedido.volume}}</span>
+													</td>
+
+												{{else:}}
+													<td id="volumePendente">
+														<span class="at qtdePendente">F</span>
+													</td>
+												{{pass}}
+												
+												<td><button type="button" class="btn btn-default btn-xs cadastroFull"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button></td>
+											</tr>		
+										{{pass}}
+
+									{{pass}}<!--FIM IF PEDIDOS.DELETADOS-->					
+								{{pass}}<!--FIM FOR PEDIDOS-->
+							</tbody>
+						</thead>
+					</table><!-- FIM TABELA PENDENTE -->
+	          	</div>
+	        </div>  
+		</div><!-- FIM DA BASE 2-->
+	</div><!--FIM DO ACORDION-->
 </div>

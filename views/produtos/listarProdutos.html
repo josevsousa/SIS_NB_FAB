@@ -85,6 +85,9 @@
 		width: 20px;
 	}
 */
+.vermelhoAlert{
+	color: #FF1100 !important;
+}
 div#config_produtos {
 	display: none;
 	margin-top: 10px;
@@ -191,7 +194,13 @@ div#config_produtos {
 				<td>{{=produto.produtos.codigo_produto}}</td>
 				<td>{{=produto.produtos.nome_produto}}</td>
 				<td>{{=produto.produtos.tamanho}}</td>
-				<td>{{=double_real(float(produto.produtos.preco_produto_lojinha)).real()}}</td>
+				{{valor = double_real(float(produto.produtos.preco_produto_lojinha)).real()}}
+				{{if valor == 'R$ 0,00':}}
+					<td class="vermelhoAlert">{{=valor}}</td>
+				{{else:}}
+					<td>{{=valor}}</td>
+				{{pass}}
+
 				<td class="opcoes">{{=produto.campos_virtual.botoes}}</td>
 			</tr>
 		{{pass}}		
