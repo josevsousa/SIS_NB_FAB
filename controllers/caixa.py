@@ -123,14 +123,16 @@ def fecharVenda():
     # dados a gravar no db
     codigoVenda = session.codigo_venda
     idCliente = db(Clientes.nome == '%s'%session.cliente ).select('id')[0].id
+
     tipoVenda = index[0]
     valorVenda = index[1]
     valorDesconto = index[2]
     totalParcelas = index[4]
+
     # pegar o nome do representante e gravar o id no historico
     representante = session.representante
     enviarEmail = 'N'
-
+    
      # Parcela, DataVencimento, Valor
     if tipoVenda == 'boleto' or tipoVenda == 'cheque':
         for iten in session.parceladaDB:
@@ -142,7 +144,7 @@ def fecharVenda():
     if valorDesconto == '':
         valorDesconto = '0.00'
         pass
-        db.historicoVendas.insert(codigoVenda = codigoVenda,clienteEmail = idCliente,tipoVenda = tipoVenda,valorVenda = valorVenda,valorDesconto = valorDesconto,  vendedor = vendedor, representante = representante ) 
+    db.historicoVendas.insert(codigoVenda = codigoVenda,clienteEmail = idCliente,tipoVenda = tipoVenda,valorVenda = valorVenda,valorDesconto = valorDesconto,  vendedor = vendedor, representante = representante ) 
     
     viewDesc = ""
     

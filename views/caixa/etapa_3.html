@@ -41,7 +41,7 @@ $(document).ready(function(){
 		      // $("#transitory").val(tipoVenda+";"+valorTotal+";"+desconto+";"+representante+";"+enviarEmail);
 		      $("#transitory").val(tipoVenda+';'+valorTotal+';'+desconto+';'+representante+';'+ totalParcelas);
 		      ajax('fecharVenda',['transitory']);
-		      $(location).attr('href',"etapa_1?menu=caixa");//redireciona a pagina
+			  $(location).attr('href',"etapa_1?menu=caixa");//redireciona a pagina
 	    }
 
 		$("#btCancelarCaixa").on('click',function(){
