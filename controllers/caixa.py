@@ -28,6 +28,7 @@ def etapa_1():
             now = datetime.now()
             session.codigo_venda =  now.strftime("%y%m%d""%S%M%H")
             pass    
+        #session.flash = 'kkk'
         redirect(URL('etapa_2?menu=caixa')) 
     
 
@@ -158,7 +159,7 @@ def fecharVenda():
     temp_codigoVenda = session.codigo_venda
     session.__delitem__('codigo_venda')
     session.__delitem__('cliente')
-    session.__delitem__('representante')  
+    session.__delitem__('representante')
 
 #--------------------------------    
 
