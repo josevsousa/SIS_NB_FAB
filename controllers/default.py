@@ -44,6 +44,10 @@ def updateSt():
     index = index.split(';')
     db(db.parcelados.id == index[0]).update(statusPagamento=index[1], dataPagamento=index[2])
 
+def produtos():
+    grid = db(Produtos.id>0).select('codigo_produto','nome_produto','preco_produto_lojinha')
+    return locals()
+
 def cheques_boletos():
     from datetime import datetime, timedelta
     meses = 1
