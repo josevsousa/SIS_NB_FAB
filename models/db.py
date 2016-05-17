@@ -71,6 +71,7 @@ mail.settings.login = 'senha'
 
 
 ## configure auth policy
+auth.settings.actions_disabled = ['register'] # desabilita a ação de registrar usuários
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True

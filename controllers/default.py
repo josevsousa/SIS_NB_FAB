@@ -36,7 +36,13 @@ def index():
         submit_button="Search",
         )
 
+    
+
     # response.flash = T("Seja bem vindo!  %s !"%(hoje.strftime('%d/%m/%Y')))
+    return locals()
+
+def produtos():
+    grid = db(Produtos.id>0).select('codigo_produto','nome_produto','preco_produto_lojinha')
     return locals()
 
 def updateSt():

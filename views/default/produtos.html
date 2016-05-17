@@ -1,0 +1,33 @@
+{{extend 'layout_print.html'}}
+<style>
+#codigo{width: 15%}
+#produto {
+    width: 66%;
+}
+@media only print{
+.socialdrawer, .print{display:none;}
+}
+</style>
+<div class="container">
+<table class="table table-bordered table-condensed">
+	<caption><h4>Tabela de produtos nallubaby</h4></caption>
+	<a href='javascript:window.print()' class='print btn btn-info btPrint'>imprimir</a>
+    <a href='javascript:window.close()' class='print btn btn-default btFecharJanela'>fechar janela</a>
+	<thead>
+		<tr>
+			<th id="codigo">CODIGO</th>
+			<th id="produto">PRODUTO</th>
+			<th>VALOR</th>
+		</tr>
+	</thead>
+	<tbody>
+	{{for row in grid:}}	
+		<tr>
+			<td id="codigo">{{=row.codigo_produto}}</td>
+			<td id="produto">{{=row.nome_produto}}</td>
+			<td>{{=double_real(row.preco_produto_lojinha).real()}}</td>
+		</tr>
+	{{pass}}	
+	</tbody>
+</table>
+</div>
