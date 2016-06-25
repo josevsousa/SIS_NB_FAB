@@ -82,6 +82,18 @@ if 'auth' in globals():
                   #   (T('Cadastro Produtos'), False, URL('produtos', 'cadastrarProdutos'), [])
                   # ])
                 ]  
+        elif auth.has_membership('pedido_via_site'):
+            response.menu = [
+                (T('Produtos'),False, None, [
+                    # (T('Separar itens venda'), False, URL('pedidos', 'abertos?menu=operacional'), []),
+                    (T('Lista do produtos'), False, URL('Lista do produtos', 'abertos?menu=operacional'), [])
+                  ]),
+
+                  # (T('Produtos'), False, None, [
+                  #   (T('Listar Produtos'), False, URL('produtos', 'listarProdutos'), []),
+                  #   (T('Cadastro Produtos'), False, URL('produtos', 'cadastrarProdutos'), [])
+                  # ])
+                ]
 
 
 if DEVELOPMENT_MENU: _()

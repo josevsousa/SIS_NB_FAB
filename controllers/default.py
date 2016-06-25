@@ -14,6 +14,11 @@ def index():
     #redireciona para outra pagina se o usuario for do grupo operacional_A
     if auth.has_membership('operacional_A'):
         redirect(URL('pedidos','abertos?menu=operacional')) 
+    elif auth.has_membership('pedido_via_site'):# se nao for admin nao tiver em nenhum grupo esta em espera para autorizaçao
+        redirect(URL('produtos','pedido_via_site?menu=Produtos'))#se acabou de faser o cadastro cai nessa tela ao se logar
+    elif not auth.has_membership('admin'):# se nao for admin nao tiver em nenhum grupo esta em espera para autorizaçao
+        redirect(URL('produtos','confirmar'))#se acabou de faser o cadastro cai nessa tela ao se logar
+
 
     from datetime import datetime, timedelta
     meses = 1

@@ -37,6 +37,16 @@ def listarProdutos():
 
 	return dict(formListar=produtos, ultima_porcentage=ultima_porcentage, ultima_alteracao=ultima_alteracao)
 
+# @auth.requires_membership('pedido_externo') 
+def confirmar():
+	d = 'Estamos analisando consultando os seus dados de cadastro! após aprovação enviamos um emal avisando que esta liberado o acesso!'
+	return locals()
+
+@auth.requires_membership('pedido_via_site') 
+def pedido_via_site():
+	d = 'ddd'
+	return locals()
+
 def almentarValorProduto():
 	valorAumento = request.vars.valorAumento
 	valorAumento = int(valorAumento)

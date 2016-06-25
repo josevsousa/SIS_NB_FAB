@@ -195,6 +195,7 @@
 'Layout': 'Layout',
 'Layout Plugins': 'Plugins de Layout',
 'Layouts': 'Layouts',
+'Lista do produtos': 'Lista do produtos',
 'Lista Produtos': 'Lista Produtos',
 'Listar Produtos': 'Listar Produtos',
 'Live chat': 'Chat ao vivo',

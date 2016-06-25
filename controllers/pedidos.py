@@ -23,6 +23,8 @@ def iten():
 	#pegar lista do historicoVendas.itensVendaPendente e jogar na tela 
 	return dict(head=head,grid=grid,cod=cod)
 
+
+
 def printEtiqueta():	
 	cod = request.vars.cod
 	qtd = request.vars.qtd

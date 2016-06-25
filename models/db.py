@@ -74,6 +74,8 @@ mail.settings.login = 'senha'
 auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
+auth.settings.login_after_registration = True # faz o login do usuário após o registro
+# auth.settings.login_next = URL('index')
 
 
 ## configura a data

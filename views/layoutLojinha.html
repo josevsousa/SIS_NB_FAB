@@ -55,6 +55,8 @@
           $("#navHeader>li:nth-child(5)").addClass("ativo")
         {{elif request.vars.menu == "operacional":}}  
           $("#navHeader>li:nth-child(6)").addClass("ativo")
+        {{elif request.vars.menu == "Produtos":}}  
+          $("#navHeader>li:nth-child(1)").addClass("ativo")
         {{pass}}
      {{pass}}   
     })
