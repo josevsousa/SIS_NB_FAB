@@ -86,7 +86,7 @@ if 'auth' in globals():
             response.menu = [
                 (T('Produtos'),False, None, [
                     # (T('Separar itens venda'), False, URL('pedidos', 'abertos?menu=operacional'), []),
-                    (T('Lista do produtos'), False, URL('Lista do produtos', 'abertos?menu=operacional'), [])
+                    (T('Lista do produtos'), False, URL('produtos', 'pedido_via_site?menu=itens'), [])
                   ]),
 
                   # (T('Produtos'), False, None, [

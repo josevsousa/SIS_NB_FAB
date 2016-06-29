@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 
 @auth.requires_login()
 def etapa_1():
@@ -20,7 +20,6 @@ def etapa_1():
         )
     if form.process().accepted:
         session.cliente = form.vars.Cliente
-        print form.vars.Cliente
         session.representante = db(db.representantes.nome == form.vars.Representante ).select('id')[0].id
         #cria codigo da venda  
         if not session.codigo_venda:

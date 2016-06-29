@@ -15,7 +15,7 @@ def index():
     if auth.has_membership('operacional_A'):
         redirect(URL('pedidos','abertos?menu=operacional')) 
     elif auth.has_membership('pedido_via_site'):# se nao for admin nao tiver em nenhum grupo esta em espera para autorizaçao
-        redirect(URL('produtos','pedido_via_site?menu=Produtos'))#se acabou de faser o cadastro cai nessa tela ao se logar
+        redirect(URL('produtos','externo_itens'))#se acabou de faser o cadastro cai nessa tela ao se logar
     elif not auth.has_membership('admin'):# se nao for admin nao tiver em nenhum grupo esta em espera para autorizaçao
         redirect(URL('produtos','confirmar'))#se acabou de faser o cadastro cai nessa tela ao se logar
 
@@ -116,7 +116,33 @@ def user():
         @auth.requires_permission('read','table name',record_id)
     to decorate functions that need access control
     """
-    return dict(form=auth())
+    form = auth()
+    return dict(form=form)
+
+# def user():
+    
+#     print request.vars.email
+#     print request.vars.senha
+
+#     usuario = INPUT(_type="email", _name='email', _id='email', _class="form-control", _placeholder="Username", requires=IS_NOT_EMPTY())
+#     #--formulario
+#     form=FORM(  H1('Login Form'),
+#                 DIV(usuario),
+#                 DIV(INPUT(_type="password", _id='senha', _name='senha', _class="form-control", _placeholder="Password")),
+#                 DIV(A('Log d in', _class="btn btn-default", _id='login', _href="#"), A('Lost your password?', _class="reset_pass", _href="#")),
+#                 DIV(_class='clearfix'),
+#                 DIV(P('Não tem cadastro? ', A('Cadastrar', _href='#'), _class='change_link'), _class='separator'),
+#                 DIV(_class='clearfix'),
+#                 BR(),
+#                 DIV(H1('logo'),
+#                     P('©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms')
+#                     )
+#             )
+    
+#     return dict(form=form)
+
+
+
 
 def tela_representantes():
 

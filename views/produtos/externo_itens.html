@@ -1,0 +1,313 @@
+{{extend 'layoutNthema.html'}}
+<!-- Bootstrap -->
+<link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="{{=URL('static','gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{=URL('static','gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
+
+<!-- Datatables -->
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+   
+<style>
+.codigo {
+    width: 13%;
+}
+.qtde {
+    width: 8%;
+}
+
+.nome {
+    width: 50%;
+}
+img.img-produto {
+    width: 36px;
+    height: 31px;
+    /*margin-left: 6px;*/
+}td.foto {
+    padding: 2px !important;
+}.foto {
+    width: 2px;
+}
+div#datatable_filter {
+    width: auto !important;
+}h2.prod_title {
+    margin: 12px 3px;
+    color: red;
+}
+img#exp_img {
+    width: 100%;
+}
+input.input-lg {
+    width: 89px;
+}span.badge.bg-green {
+    font-size: inherit;
+}
+tbody tr:hover {
+    color: #167F80;
+    background: #EAFFFF !important;
+    cursor: pointer;
+}
+.iten_add {
+    color: #167F80;
+    background: #EAFFFF !important;
+    cursor: pointer;
+}
+</style>
+<!-- jQuery -->
+<script src="{{=URL('static','gentelella-master/vendors/jquery/dist/jquery.min.js')}}"></script>
+<script>
+  $(document).ready(function(){
+    
+           //=== BUSCAR REGISTRO
+        $('#datatable').on('click','tr', function(){
+            var iten = $(this)[0]
+            var codigo = iten.children[1].textContent;
+            console.log(codigo);  
+       
+             //================== MODAL ======          
+               var titulo = '<span class="badge bg-green">6</span> itens na sua lista. Somando o Total de <b>R$'+ 55.55+'</b>';
+                //chama o modal            
+                $('#myModal').modal('show');
+                
+                //quando o modal abrir faça
+                $('#myModal').on('shown.bs.modal', function () {
+
+                    $("#myModalLabel").html(titulo);
+                 
+                })
+               //botao gravar do modal
+                $('#gravar').on('click',function(){
+                    //pegar os campos do modal e passar para o ajax gravar no db
+                    console.log('ddddddd');
+                    // // gravar no python
+                    // var rows = $('#tab_calculo_parcelas tbody tr');
+                    // var cont = rows.length;
+                    // //rows
+                    // var iten = '';
+                    // for (var i = 0; i < cont; i++) {
+                    //     if (i != 0) {
+                    //         iten += '@';
+                    //     }
+                    //     var row = rows[i];
+                    //     var parcela = row.cells[0].textContent;
+                    //     var numero_cheque = row.cells[1].children[0].value;
+                    //     var banco = row.cells[2].children[0].value;
+                    //     var nome = row.cells[3].children[0].value;
+                    //     var data = row.cells[4].children[0].value;
+                    //     var valor = row.cells[5].children[0].value;
+                    //     valor = valor.replace('R$ ','').replace('.','').replace(',','.');
+                    //     iten += numero_cheque+";"+nome+";"+data+";"+valor+";"+banco;
+                    //     console.log(iten)
+                    // }
+                    // $('#transitory').val(codigo+"|"+iten);
+                    //     ajax('gravarParcelas',['transitory'])
+                    // $("#myModal").modal('hide');
+                })
+                
+                //quando o modal fechar
+                $('#myModal').on('hide.bs.modal', function () {
+                    // location.reload();//reload na pagina pra carregar as alteracoes na tabela
+                })
+
+            //==== FIM MODAL ======
+            });
+  });
+</script>
+<input type="text" id="transitory" name="transitory" style="display:none"></input>
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <!-- <div class="minha_alert" role="alert">
+        <strong>Warning!</strong> Better check yourself, you're not looking too good.
+      </div>
+ -->      <div class="modal-body">
+
+      <!-- bory -->
+        <div class="row">
+          
+        <div class="col-md-8 col-sm-8 col-xs-8">
+          <img id="exp_img" src="{{=URL('static','images/produtos.foto_produto.a550027486c4b392.333030385f332e6a7067.jpg')}}" alt="">
+        </div>
+        <div class="col-md-4 col-sm-4 col-xs-4">
+         <h2>KIT 4 PEÇAS</h2>
+          <p>A foto ao lado é ilustrativa pra mostrar o <b> modelo da peça </b>, as cores e estampas são aleatórias mantendo</p>
+          <br />
+          <div class="">
+            <div class="product_price">
+              <h1 class="price">Ksh80.00</h1>
+              <span class="price-tax">Ex Tax: Ksh80.00</span>
+              <br>
+            </div>
+          </div>
+          <p>Digite a quantidade de peças e depois em add na sua lista!</p>
+        <div class=""> 
+          <input type="number" id="input_qtde" class="input-lg" value='1' min="1"></input>
+          <button type="button" class="btn btn-default btn-lg">Add to Wishlist</button>
+        </div>
+         <h2 class="prod_title">Importante!!</h2>
+          <p>A foto ao lado é ilustrativa pra mostrar o <b> modelo da peça </b>, as cores e estampas são aleatórias mantendo
+          apenas o estilo "menino ou menina". Quanto ao tamanho você poderá especificar no campo comentário exp: 30 peça <b>(10 P), (10 M), (10 G)</b></p>
+</div>
+        
+        </div>
+      <!-- fim do bory -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" id="gravar"  class="btn btn-primary">Add a lista</button> -->
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- =========================  table ================================= -->
+<div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Tabela de preços<small>Preço de atacado</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
+                    </p>
+                    <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="foto"></th>
+                          <th class="codigo">Código</th>
+                          <th class="nome">Nome</th>
+                          <th class="vu">valor</th>
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+                      {{for produto in produtos:
+                        foto = IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-min",_width="80px")  
+                      }}
+                         {{if produto.foto_produto:}} 
+                        <tr>
+                          <td class="foto">
+                          <!-- ==========foto=========== -->
+                              
+                                  {{=IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-produto",_alt="")}}
+                             
+                          <!-- ==========foto=========== -->                            
+                          </td>
+                          <td class="codigo">{{=produto.codigo_produto}}</td>
+                          <td class="nome">{{=produto.nome_produto}}</td>
+                          <td class="vu">{{= double_real(float(produto.preco_produto_lojinha)).real()}}</td>
+                        </tr>
+                         {{pass}}
+                      {{pass}}  
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>  
+<!-- =========================  table ================================= -->
+
+
+<!-- Bootstrap -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- Custom Theme Scripts -->
+<script src="{{=URL('static','gentelella-master/build/js/custom.min.js')}}"></script>
+
+    <!-- Datatables -->
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/jszip/dist/jszip.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+    
+   <!-- Datatables -->
+    <script>
+      $(document).ready(function() {
+        var handleDataTableButtons = function() {
+          if ($("#datatable-buttons").length) {
+            $("#datatable-buttons").DataTable({
+              dom: "Bfrtip",
+              buttons: [
+                {
+                  extend: "copy",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "csv",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "excel",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "pdfHtml5",
+                  className: "btn-sm"
+                },
+                {
+                  extend: "print",
+                  className: "btn-sm"
+                },
+              ],
+              responsive: true
+            });
+          }
+        };
+
+        TableManageButtons = function() {
+          "use strict";
+          return {
+            init: function() {
+              handleDataTableButtons();
+            }
+          };
+        }();
+
+        $('#datatable').dataTable();
+        $('#datatable-keytable').DataTable({
+          keys: true
+        });
+
+        $('#datatable-responsive').DataTable();
+
+        // $('#datatable-scroller').DataTable({
+        //   ajax: "js/datatables/json/scroller-demo.json",
+        //   deferRender: true,
+        //   scrollY: 380,
+        //   scrollCollapse: true,
+        //   scroller: true
+        // });
+
+        var table = $('#datatable-fixed-header').DataTable({
+          fixedHeader: true
+        });
+
+        TableManageButtons.init();
+      });
+    </script>
+    <!-- /Datatables -->

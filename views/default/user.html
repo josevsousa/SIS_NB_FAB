@@ -1,26 +1,64 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Gentellela Alela! | </title>
+    
+    <!-- Bootstrap -->
+    <!-- Bootstrap -->
+    <link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{=URL('static','gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{=URL('static','gentelella-master/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="{{=URL('static','css/animate.css')}}" rel="stylesheet">
+    <link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+
+<style>
+    body {
+        background: #F7F7F7;
+    }    
+    
+    input.invalidinput {
+        margin: 0 !important;
+    }
+div.error_wrapper {
+    color: red;
+    text-align: left;
+    padding: 5px 0px 0px 4px;
+}      
+div#login {
+    margin: 20px auto;
+    max-width: 500px;
+    padding: 20px;
+}
+div#logo {
+    text-align: center;
+}
 
 
-<div class="container">
-    <div class="row">
-        <div id="web2py_user_form" class="col-lg-6">
-        {{
-        if request.args(0)=='login':
-            if not 'register' in auth.settings.actions_disabled:
-                form.add_button(T('Sign Up'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-default')
-            pass
-            if not 'request_reset_password' in auth.settings.actions_disabled:
-                form.add_button(T('Lost Password'),URL(args='request_reset_password'),_class='btn btn-default')
-            pass
-        pass
-        =form
-        }}
-        </div>
-    </div>
-</div>
+</style>
+ 
+  </head>
 
-
-
+  <body >
+    <div id="login">
+            
+            <div class='col-sm-3'></div>
+            <div class='col-sm-9' id="logo">        
+                <img src="{{=URL('static','images/logo-lojinha.png')}}" alt="">
+                <br>
+                <br>
+            </div>    
+        {{=form}}
+        
 {{block page_js}}
 <script>
     jQuery("#web2py_user_form input:visible:enabled:first").focus();
@@ -31,3 +69,6 @@
 {{pass}}
 </script>
 {{end page_js}}
+    </div>
+  </body>
+</html>

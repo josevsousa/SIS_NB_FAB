@@ -42,10 +42,44 @@ def confirmar():
 	d = 'Estamos analisando consultando os seus dados de cadastro! após aprovação enviamos um emal avisando que esta liberado o acesso!'
 	return locals()
 
-@auth.requires_membership('pedido_via_site') 
-def pedido_via_site():
+
+def tableSimples():
 	d = 'ddd'
 	return locals()
+
+#---------------------- EXTERNO --------------------------- 
+@auth.requires_membership('pedido_via_site') 	
+def externo_itens():
+
+    # existe itens na lista
+    if session.codigo_pedido:
+        carrinho = SPAN('0',_class="badge bg-green")
+        print 'gerar codigo'
+    else:
+        carrinho = SPAN('0',_class="badge bg-orange")
+
+
+    produtos = db(db.produtos.id>0).select()
+    return locals()
+
+def add_carrinho():
+	# se não existir nenhuma venda crie o codigo da venda
+    if not session.codigo_venda:
+        now = datetime.now()
+        session.codigo_venda =  now.strftime("%y%m%d""%S%M%H")
+    pass
+
+    # valores recebidos
+    index = request.vars.tansitory
+
+    return locals()
+
+#---------------------- FIM EXTERNO ---------------------------	
+
+def modelo():
+	return locals()
+
+
 
 def almentarValorProduto():
 	valorAumento = request.vars.valorAumento
@@ -75,7 +109,6 @@ def almentarValorProduto():
 def resetarValorProduto():
     produtos = db(Produtos.id>0).select()
     for produto in produtos:
-        print produto.preco_produto_lojinha
         db(Produtos.id == produto.id).update(preco_produto_lojinha=produto.preco_produto_lojinha_backup)
         pass
     produtosConfig = db(db.produtos_config.id>0).select()
@@ -103,7 +136,6 @@ def update():
 	return dict(form=crud.update(db.produtos,request.args(0)))
 #delete
 def deletar():
-	print request.vars.cod
 	db(db.produtos.codigo_produto == request.vars.cod).delete()
 	return ''
 
