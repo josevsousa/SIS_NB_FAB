@@ -56,93 +56,70 @@ tbody tr:hover {
     background: #EAFFFF !important;
     cursor: pointer;
 }
-span.badge.bg-green.qt {
-    float: right;
-}
 </style>
 <!-- jQuery -->
 <script src="{{=URL('static','gentelella-master/vendors/jquery/dist/jquery.min.js')}}"></script>
 <script>
-  var x = 0
   $(document).ready(function(){
-
+    
         //=== BUSCAR REGISTRO
         $('#datatable').on('click','tr', function(){
-            var tr = $(this);
-            var iten = $(tr)[0];
-            var valor = iten.children[3];
+            var iten = $(this)[0]
             var codigo = iten.children[1].textContent;
             $('#transitory').val(codigo);
+            ajax('montar_modal',['transitory'],'tela_modal');
     
              //================== MODAL ======          
-            var titulo = '<span class="badge bg-green">6</span> itens na sua lista. Somando o Total de <b>R$'+ 55.55+'</b>';
-
-
-            // monta o modal
-            ajax('montar_modal',['transitory'],'tela_modal');
-            // ver se tem item
-            if(valor.children[0]){
-              input_qtde.value = valor.children[0].textContent;
-            } else {
-              input_qtde.value = 1;
-            }
-
-
-            //chama o modal            
-            $('#myModal').modal('show');
-            
-            //quando o modal abrir faça
-            $('#myModal').on('shown.bs.modal', function () {
-              // busca se o iten existe na lista 
-
-              
-            });
-
-            //botao gravar do modal
-            $('#gravar').on('click',function(){
-
-                // ativa a row
-                // $(tr).addClass('iten_add');
-
-                //pega valor do input 
-                var qt = $('#input_qtde').val();
-
-                // // valor do iten
-                // var textValor = valor.textContent;  
-
-                // // adciona o span com a qt na row
-                // $(valor).html(textValor+'<span class="badge bg-green qt">'+qt+'</span>');
-
-                // // somar o carrinho + 1
-                // var itensCarrinho = parseInt($("#carrinho").text());
-                // $('#carrinho').text(itensCarrinho+1).removeClass('bg-orange').addClass('bg-green');   
-
-
-                $('#transitory').val(qt+";"+codigo);
-                $('#gravar').text('gravando...').removeClass('btn-default').addClass('btn-info')
-
-                ajax('add_carrinho',['transitory']);
-               
-                location.reload();
-
-
-                // $("#myModal").modal('hide');
-                // location.reload();
-
-             })
+               var titulo = '<span class="badge bg-green">6</span> itens na sua lista. Somando o Total de <b>R$'+ 55.55+'</b>';
+                //chama o modal            
+                $('#myModal').modal('show');
                 
-            //quando o modal fechar
-            $('#myModal').on('hide.bs.modal', function () {
+                //quando o modal abrir faça
+                $('#myModal').on('shown.bs.modal', function () {
+                 
+                });
+
+               //botao gravar do modal
+                $('#gravar').on('click',function(){
+                    //pegar os campos do modal e passar para o ajax gravar no db
+                    console.log('ddddddd');
+                    // // gravar no python
+                    // var rows = $('#tab_calculo_parcelas tbody tr');
+                    // var cont = rows.length;
+                    // //rows
+                    // var iten = '';
+                    // for (var i = 0; i < cont; i++) {
+                    //     if (i != 0) {
+                    //         iten += '@';
+                    //     }
+                    //     var row = rows[i];
+                    //     var parcela = row.cells[0].textContent;
+                    //     var numero_cheque = row.cells[1].children[0].value;
+                    //     var banco = row.cells[2].children[0].value;
+                    //     var nome = row.cells[3].children[0].value;
+                    //     var data = row.cells[4].children[0].value;
+                    //     var valor = row.cells[5].children[0].value;
+                    //     valor = valor.replace('R$ ','').replace('.','').replace(',','.');
+                    //     iten += numero_cheque+";"+nome+";"+data+";"+valor+";"+banco;
+                    //     console.log(iten)
+                    // }
+                    $('#transitory').val($('#input_qtde').val()+";"+codigo)
+                    ajax('add_carrinho',['transitory'])
+                    $("#myModal").modal('hide');
+                    
+                })
                 
-                //reload na pagina pra carregar as alteracoes na tabela
-            })
+                //quando o modal fechar
+                $('#myModal').on('hide.bs.modal', function () {
+                    location.reload();
+                    //reload na pagina pra carregar as alteracoes na tabela
+                })
 
             //==== FIM MODAL ======
             });
   });
 </script>
 <input type="text" id="transitory" name="transitory" style="display:none"></input>
-
 <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -154,29 +131,23 @@ span.badge.bg-green.qt {
       <!-- <div class="minha_alert" role="alert">
         <strong>Warning!</strong> Better check yourself, you're not looking too good.
       </div> -->  
-      <div id="modal-body">
+      <div class="modal-body">
         <!-- bory -->
         <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-              <div id="tela_modal">
-                
-              </div>
+              <div id="tela_modal"></div>
             <!-- D -->
             <div class="col-md-4 col-sm-4 col-xs-4">
                 <p>Digite a quantidade de peças e depois em add na sua lista!</p>  
-                <div> 
-                  <input type="number" id="input_qtde" name="input_qtde" class="input-lg" value=1 min="1"></input>
-                  <button type="button" id="gravar" class="btn btn-default btn-lg">Add to Wishlist</button>
-                </div>     
+                <div class=""> 
+                <input type="number" id="input_qtde" name="input_qtde" class="input-lg" value='1' min="1"></input>
+                <button type="button" id="gravar" class="btn btn-default btn-lg">Add to Wishlist</button>
+              </div>     
               <h2 class="prod_title">Importante!!</h2>
               <p>A foto ao lado é ilustrativa pra mostrar o <b> modelo da peça </b>, as cores e estampas são aleatórias mantendo
               apenas o estilo "menino ou menina". Quanto ao tamanho você poderá especificar no campo comentário exp: 30 peça <b>(10 P), (10 M), (10 G)</b>
-              </p> 
-              <div id="x">
-                
-              </div>
-            </div><!-- fim do D --> 
-          </div>           
+              </p>  
+
+            </div><!-- fim do D -->          
         </div>
         <!-- fim do bory -->
       </div>
@@ -190,7 +161,6 @@ span.badge.bg-green.qt {
 </div>
 <!-- =========================  table ================================= -->
 <div class="col-md-12 col-sm-12 col-xs-12">
-
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Tabela de preços<small>Preço de atacado</small></h2>
@@ -218,60 +188,26 @@ span.badge.bg-green.qt {
 
 
                       <tbody>
-                      {{
-                        for produto in produtos:
-                          foto = IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-min",_width="80px")
-                          
-                          #tem foto entao mostre o iten  
-                          if produto.foto_produto:
-                              codigo = produto.codigo_produto #codigo do iten 
-
-
-                              existe = False
-                              qtde_item = ''
-                              if session.itens:
-                                  for i in session.itens:
-                                      if i['cod'] == codigo:
-                                          existe = True
-                                          qtde_item = i['qtd']
-                                      pass
-                                  pass        
-                              pass
-
-                              if existe: 
-                                  }}
-                                    <tr class="iten_add">
-                                      <td class="foto">
-                                      <!-- ==========foto=========== -->
-                                        {{=IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-produto",_alt="")}}
-                                      <!-- ==========foto=========== -->                            
-                                      </td>
-                                      <td class="codigo">{{=codigo}}</td>
-                                      <td class="nome">{{=produto.nome_produto}}</td>
-                                      <td class="vu">{{= double_real(float(produto.preco_produto_lojinha)).real()}}<span class="badge bg-green qt">{{=qtde_item}}</span></td>
-                                    </tr>
-                                  {{
-                              else:
-                                  }}
-                                    <tr>
-                                      <td class="foto">
-                                      <!-- ==========foto=========== -->
-                                        {{=IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-produto",_alt="")}}
-                                      <!-- ==========foto=========== -->                            
-                                      </td>
-                                      <td class="codigo">{{=codigo}}</td>
-                                      <td class="nome">{{=produto.nome_produto}}</td>
-                                      <td class="vu">{{= double_real(float(produto.preco_produto_lojinha)).real()}}</td>
-                                    </tr>
-                                  {{  
-                              pass 
-
-                          pass
-                       pass
-                       }}  
+                      {{for produto in produtos:
+                        foto = IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-min",_width="80px")  
+                      }}
+                         {{if produto.foto_produto:}} 
+                        <tr>
+                          <td class="foto">
+                          <!-- ==========foto=========== -->
+                              
+                                  {{=IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-produto",_alt="")}}
+                             
+                          <!-- ==========foto=========== -->                            
+                          </td>
+                          <td class="codigo">{{=produto.codigo_produto}}</td>
+                          <td class="nome">{{=produto.nome_produto}}</td>
+                          <td class="vu">{{= double_real(float(produto.preco_produto_lojinha)).real()}}</td>
+                        </tr>
+                         {{pass}}
+                      {{pass}}  
                       </tbody>
                     </table>
-                    <button type="teste" id="barra">teste</button>
                   </div>
                 </div>
               </div>  

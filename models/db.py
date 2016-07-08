@@ -117,6 +117,7 @@ Produtos = db.define_table('produtos',
     Field('dataGravado','datetime', default=request.now, label="Data", readable=False,  writable=False),
     Field('tamanho', label="Tamanho", default="P/M/G"),
     Field('foto_produto','upload', label="Foto"),
+    Field('descricao'),
     migrate ='produtos.table'   
     )
 db.produtos.tamanho.requires = IS_IN_SET(TAMANHO, error_message="Código obrigatório")

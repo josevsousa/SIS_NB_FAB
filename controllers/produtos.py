@@ -48,31 +48,71 @@ def tableSimples():
 	return locals()
 
 #---------------------- EXTERNO --------------------------- 
-@auth.requires_membership('pedido_via_site') 	
+@auth.requires_membership('pedido_via_site')
 def externo_itens():
-
-    # existe itens na lista
-    if session.codigo_pedido:
-        carrinho = SPAN('0',_class="badge bg-green")
-        print 'gerar codigo'
+    if session.codigo_venda:
+    	#conta itens
+    	cont = 0
+    	for i in session.itens:
+    		cont += 1
+    			
+        carrinho = SPAN(cont, _id="carrinho", _class="badge bg-green	")
     else:
-        carrinho = SPAN('0',_class="badge bg-orange")
-
-
+        carrinho = SPAN('0', _id="carrinho", _class="badge bg-orange")
+    pass
     produtos = db(db.produtos.id>0).select()
     return locals()
 
-def add_carrinho():
-	# se não existir nenhuma venda crie o codigo da venda
+def montar_modal():
+	index = request.vars.transitory
+	codigo = index
+
+	produtos = db(db.produtos.codigo_produto == codigo)
+	img = URL('default','download',args=produtos.select('foto_produto')[0].foto_produto)
+
+	body_modal = HTML(
+		DIV(IMG(_src=img, _id="exp_img", _alt=""), _class="col-md-8 col-sm-8 col-xs-8"),
+   		DIV(H2(produtos.select('nome_produto')[0].nome_produto),
+			P('descricao bla bla bla'),
+			BR(),
+			DIV(H1(double_real(produtos.select('preco_produto_lojinha')[0].preco_produto_lojinha).real(), _class="price"),
+				SPAN('Ex Tax: Ksh80.00', _class="price-tax"),
+				BR(),
+				_class="product_price"),
+		 	_class="col-md-4 col-sm-4 col-xs-4")
+		)
+	return body_modal
+
+def add_carrinho():	
+    session.barra = 10
+
+    # se não existir nenhuma venda crie o codigo da venda
     if not session.codigo_venda:
         now = datetime.now()
         session.codigo_venda =  now.strftime("%y%m%d""%S%M%H")
     pass
+    session.barra = 20
+    
+    #get
+    index = request.vars.transitory
+    index = index.split(';')
+    quantidade = index[0]
+    codigoPeca = index[1]
+    session.barra = 50
 
-    # valores recebidos
-    index = request.vars.tansitory
-
-    return locals()
+    #gravar no session.itens todos os itens
+    if session.itens:
+        itens = session.itens
+        itens.append({"cod":codigoPeca,"qtd":quantidade})
+        session.itens = itens
+        session.barra = 80
+    else:
+        itens = []
+        itens.append({"cod":codigoPeca,"qtd":quantidade})
+        session.itens = itens
+        session.barra = 80   
+    session.barra = 100
+    return locals() 
 
 #---------------------- FIM EXTERNO ---------------------------	
 
