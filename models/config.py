@@ -2,7 +2,8 @@
 # vendaAtual = Storage()  #vendaAtual é uma session
 # vendaAtual.codigo = 5555  #vendaAtual{'codigo':555}
 
-
+if not session.itens:
+    session.itens = []
 
 from datetime import datetime, timedelta
 

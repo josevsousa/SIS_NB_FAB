@@ -70,6 +70,23 @@ def montar_modal():
 	produtos = db(db.produtos.codigo_produto == codigo)
 	img = URL('default','download',args=produtos.select('foto_produto')[0].foto_produto)
 
+	# tem na lista
+	iten_na_lista = False
+	id_iten = 0
+	for i in session.itens:
+		if i['cod'] == codigo:
+			id_iten = session.itens.index(i)
+			if i['obs'] != "":
+				iten_na_lista = True
+				break
+
+	if iten_na_lista:
+		iten = session.itens
+		conteudo_obs = iten[id_iten]['obs']
+	else:
+		conteudo_obs = ""	
+
+
 	body_modal = HTML(
 		DIV(IMG(_src=img, _id="exp_img", _alt=""), _class="col-md-8 col-sm-8 col-xs-8"),
    		DIV(H2(produtos.select('nome_produto')[0].nome_produto),
@@ -79,39 +96,49 @@ def montar_modal():
 				SPAN('Ex Tax: Ksh80.00', _class="price-tax"),
 				BR(),
 				_class="product_price"),
+			P('Digite aqui suas OBS:'),
+			TEXTAREA(conteudo_obs,_class="input-lg", _id="obs", _placeholder="teste"),
 		 	_class="col-md-4 col-sm-4 col-xs-4")
+		
 		)
 	return body_modal
 
 def add_carrinho():	
-    session.barra = 10
-
     # se não existir nenhuma venda crie o codigo da venda
     if not session.codigo_venda:
         now = datetime.now()
         session.codigo_venda =  now.strftime("%y%m%d""%S%M%H")
-    pass
-    session.barra = 20
-    
+     
     #get
     index = request.vars.transitory
     index = index.split(';')
+    
     quantidade = index[0]
+    
     codigoPeca = index[1]
-    session.barra = 50
+
+    obs = index[2]
 
     #gravar no session.itens todos os itens
-    if session.itens:
-        itens = session.itens
-        itens.append({"cod":codigoPeca,"qtd":quantidade})
-        session.itens = itens
-        session.barra = 80
-    else:
-        itens = []
-        itens.append({"cod":codigoPeca,"qtd":quantidade})
-        session.itens = itens
-        session.barra = 80   
-    session.barra = 100
+    itens = session.itens
+    existe = False
+    # se o iten existir na session.iten update na qtd do iten na lista
+    for i in itens:
+    	idd = itens.index(i)
+    	print idd
+    	if i['cod'] == codigoPeca:
+    		existe = True
+    		itens[idd]['qtd'] = quantidade
+    		itens[idd]['obs'] = 'lll'
+    		break
+
+    # so add na lista se o item não existir nela 
+    if existe == False:		
+    	itens.append({"cod":codigoPeca,"qtd":quantidade, "obs":obs})
+
+    session.itens = itens
+
+
     return locals() 
 
 #---------------------- FIM EXTERNO ---------------------------	

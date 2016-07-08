@@ -13,6 +13,12 @@
 <link href="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
    
 <style>
+a.close-iten {
+    float: right;
+    position: absolute;
+    right: -4px;
+    color: red;
+}
 .codigo {
     width: 13%;
 }
@@ -59,11 +65,16 @@ tbody tr:hover {
 span.badge.bg-green.qt {
     float: right;
 }
+textarea#obs {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 14px;
+    font-size: 13px;
+}
 </style>
 <!-- jQuery -->
 <script src="{{=URL('static','gentelella-master/vendors/jquery/dist/jquery.min.js')}}"></script>
 <script>
-  var x = 0
   $(document).ready(function(){
 
         //=== BUSCAR REGISTRO
@@ -77,15 +88,17 @@ span.badge.bg-green.qt {
              //================== MODAL ======          
             var titulo = '<span class="badge bg-green">6</span> itens na sua lista. Somando o Total de <b>R$'+ 55.55+'</b>';
 
-
-            // monta o modal
-            ajax('montar_modal',['transitory'],'tela_modal');
+             ajax('montar_modal',['transitory'],'tela_modal');
+ 
             // ver se tem item
             if(valor.children[0]){
               input_qtde.value = valor.children[0].textContent;
+              contem_item = true;
             } else {
               input_qtde.value = 1;
+              contem_item = false;
             }
+
 
 
             //chama o modal            
@@ -94,7 +107,8 @@ span.badge.bg-green.qt {
             //quando o modal abrir faça
             $('#myModal').on('shown.bs.modal', function () {
               // busca se o iten existe na lista 
-
+                         // monta o modal
+ 
               
             });
 
@@ -106,7 +120,7 @@ span.badge.bg-green.qt {
 
                 //pega valor do input 
                 var qt = $('#input_qtde').val();
-
+                var obs = $('#obs').val();
                 // // valor do iten
                 // var textValor = valor.textContent;  
 
@@ -118,7 +132,8 @@ span.badge.bg-green.qt {
                 // $('#carrinho').text(itensCarrinho+1).removeClass('bg-orange').addClass('bg-green');   
 
 
-                $('#transitory').val(qt+";"+codigo);
+
+                $('#transitory').val(qt+";"+codigo+";"+obs);
                 $('#gravar').text('gravando...').removeClass('btn-default').addClass('btn-info')
 
                 ajax('add_carrinho',['transitory']);
@@ -163,10 +178,10 @@ span.badge.bg-green.qt {
               </div>
             <!-- D -->
             <div class="col-md-4 col-sm-4 col-xs-4">
-                <p>Digite a quantidade de peças e depois em add na sua lista!</p>  
+                <p>Digite a quantidade de peças:</p>  
                 <div> 
                   <input type="number" id="input_qtde" name="input_qtde" class="input-lg" value=1 min="1"></input>
-                  <button type="button" id="gravar" class="btn btn-default btn-lg">Add to Wishlist</button>
+                  <button type="button" id="gravar" class="btn btn-default btn-lg">Add ao pedido</button>
                 </div>     
               <h2 class="prod_title">Importante!!</h2>
               <p>A foto ao lado é ilustrativa pra mostrar o <b> modelo da peça </b>, as cores e estampas são aleatórias mantendo
@@ -248,7 +263,9 @@ span.badge.bg-green.qt {
                                       </td>
                                       <td class="codigo">{{=codigo}}</td>
                                       <td class="nome">{{=produto.nome_produto}}</td>
-                                      <td class="vu">{{= double_real(float(produto.preco_produto_lojinha)).real()}}<span class="badge bg-green qt">{{=qtde_item}}</span></td>
+                                      <td class="vu">{{= double_real(float(produto.preco_produto_lojinha)).real()}}<span class="badge bg-green qt">{{=qtde_item}}</span>
+                                      <a class="close-iten"><i class="fa fa-close"></i></a>
+                                      </td>
                                     </tr>
                                   {{
                               else:
@@ -271,7 +288,6 @@ span.badge.bg-green.qt {
                        }}  
                       </tbody>
                     </table>
-                    <button type="teste" id="barra">teste</button>
                   </div>
                 </div>
               </div>  
