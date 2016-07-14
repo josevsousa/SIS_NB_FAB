@@ -1,0 +1,183 @@
+{{extend 'layoutNthema.html'}}
+<!-- Bootstrap -->
+<link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="{{=URL('static','gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{=URL('static','gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
+
+<!-- Datatables -->
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+ <style>
+ input.input-lg {
+    width: 89px;
+}
+textarea#obs {
+    width: 100%;
+    margin-bottom: 19px;
+}  	
+#codigo_view{
+  color: aliceblue;
+  background: black;
+}
+</style> 
+<script>
+	$(document).ready(function(){
+		$("#add_item").on('click', function(){
+			var codigo_produto = {{=codigo}};
+			var obs = $("#obs").val();
+			var qtd = $("#qtd").val();
+			$("#transitory").val(codigo_produto+';'+obs+';'+qtd);
+			$("#add_item").text('adicionando...');
+			ajax("add_item",['transitory']);
+			$(location).attr('href','externo_itens');
+		});	
+	});
+	function excluir(){
+		var codigo = {{=codigo}};
+		$("#excluir").text('excluindo...');
+		$("#transitory").val(codigo);
+		ajax("excluir_item",['transitory']);
+		$(location).attr('href','externo_itens');
+	}
+</script>
+
+ 
+		<input type="text" id="transitory" name="transitory" style="display:none"></input>
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Tabela Nallubaby
+                <a href="externo_itens.html" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Voltar</a>
+                </h3>
+              </div>
+
+            </div>
+            	
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Item selecionado da tabela de produto de cod: <span class="label label-info" id="codigo_view">{{=codigo}}</span></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="col-md-7 col-sm-7 col-xs-12">
+                      <div class="product-image">
+                        <img src="{{=img}}" alt="..." />
+                      </div>
+                     <!--  <div class="product_gallery">
+                        <a>
+                          <img src="images/prod-2.jpg" alt="..." />
+                        </a>
+                        <a>
+                          <img src="images/prod-3.jpg" alt="..." />
+                        </a>
+                        <a>
+                          <img src="images/prod-4.jpg" alt="..." />
+                        </a>
+                        <a>
+                          <img src="images/prod-5.jpg" alt="..." />
+                        </a>
+                      </div> -->
+                    </div>
+
+                    <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+
+                      <h3 class="prod_title">{{=nome}}</h3>
+
+                      <p>{{=descricao}}</p>
+                      <br />
+                     <div class="">
+                        <div class="product_price">
+                          <h1 class="price">{{=preco}}</h1>
+                          <span class="price-tax">Toda a tabela com 10% de desc</span>
+                          <br>
+                        </div>
+                      </div>
+                      <div>
+                      <!-- placeholder="Digite aqui sua obs Exp: 10P, 10M, 10G" -->
+                      	<textarea name="obs" id="obs" class="input-lg" placeholder="Digite aqui sua obs Exp: 10P, 10M, 10G" >{{=obs}}</textarea>
+                      </div>
+                      <div class="">
+                        <input type="number" id="qtd" class="input-lg" value="{{=qtde_item}}" min="0"></input>
+                        <button type="button" id="add_item" class="btn btn-default btn-lg">Add a lista</button>
+                        {{=del_iten}}
+                      </div>
+
+                      <div class="product_social">
+                        <ul class="list-inline">
+                          <li><a href="#"><i class="fa fa-facebook-square"></i></a>
+                          </li>
+                          <li><a href="#"><i class="fa fa-twitter-square"></i></a>
+                          </li>
+                          <li><a href="#"><i class="fa fa-envelope-square"></i></a>
+                          </li>
+                          <!-- <li><a href="#"><i class="fa fa-rss-square"></i></a> -->
+                          </li>
+                        </ul>
+                      </div>
+
+                    </div>
+
+
+                    <div class="col-md-12">
+
+                      <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                        <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                          <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Descrição</a>
+                          </li>
+                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Importante</a>
+                          </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                          <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
+                              synth. Cosby sweater eu banh mi, qui irure terr.</p>
+                          </div>
+                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+                              booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <!-- jQuery -->
+	}
+    <script src="{{=URL('static','gentelella-master/vendors/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{=URL('static','gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <!-- FastClick -->
+    <script src="{{=URL('static','gentelella-master/vendors/fastclick/lib/fastclick.js')}}"></script>
+    <!-- NProgress -->
+    <script src="{{=URL('static','gentelella-master/vendors/nprogress/nprogress.js')}}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{=URL('static','gentelella-master/build/js/custom.min.js')}}"></script>

@@ -61,47 +61,171 @@ def externo_itens():
         carrinho = SPAN('0', _id="carrinho", _class="badge bg-orange")
     pass
     produtos = db(db.produtos.id>0).select()
+    # session.itens = [{'cod':62,'qtd':5}]
+
+    tabela = tabela_preco(produtos)
+
     return locals()
 
-def montar_modal():
-	index = request.vars.transitory
-	codigo = index
+@auth.requires_login()
+def tabela_preco(produtos):
+	tbody = [] 
+	
+	for produto in produtos:
+		foto = IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-min",_width="80px")
+		#tem foto entao mostre o iten
+		if produto.foto_produto:
+			codigo = produto.codigo_produto #codigo do iten 
+			existe_na_lista = False
+			qtde_item = ''
+			# tem iten no carrinho 
+			if session.itens:
+				for i in session.itens:
+					if i['cod'] == codigo:
+						existe_na_lista = True
+						qtde_item = i['qtd']
+						break
+	
+			if existe_na_lista:
+				tr = TR(
+					TD(
+						IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-produto",_alt=""),
+						_class='foto'),
+					TD(codigo,_class="codigo"),
+					TD(produto.nome_produto,_class="nome"),
+					TD(double_real(float(produto.preco_produto_lojinha)).real(),SPAN(qtde_item,_class="badge bg-green qt"),_class="vu"),
+					_class="iten_add")
+				tbody.append(tr)
+			else:
+				tr = TR(
+					TD(
+						IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-produto",_alt=""),
+						_class='foto'),
+					TD(codigo,_class="codigo"),
+					TD(produto.nome_produto,_class="nome"),
+					TD(double_real(float(produto.preco_produto_lojinha)).real(),_class="vu"))
+				tbody.append(tr)
+
+	# tabela completa 
+	tabela = DIV(
+		DIV(
+			DIV(
+				H2("Tabela de preço"),
+				UL(
+					LI(A(I(_class="fa fa-chevron-up"),_class="collapse-link")),
+					LI(A(I(_class="fa fa-close"),_class="close-link")),
+					_class="nav navbar-right panel_toolbox"),
+				DIV(_class="clearfix"),
+				_class="x_title"),
+			DIV(
+				P("Descrição aquiiiiiiiiii", _class="text-muted font-13 m-b-30"),
+				# tabela
+				TABLE(
+					THEAD(
+						TR(
+							TH(_class="foto"),
+							TH("Código",_class="codigo"),
+							TH("Nome",_class="nome"),
+							TH("Valor",_class="vu"),
+							)
+						),
+					TBODY(tbody),
+					_id="datatable", _class="table table-striped table-bordered"),
+				# fim da tabela
+				_class="x_content"),
+			_class="x_panel"),
+		_class="col-md-12 col-sm-12 col-xs-12")
+
+	return tabela
+
+def e_commerce():
+	codigo = request.vars.cod
+	
+	# qtd de itens exp: cod:90 x 10
+	qtde_item = request.vars.qtd
+	if not qtde_item:
+		qtde_item = 0
+
+	# qtd de itens no carrinho
+	if session.codigo_venda:
+		#conta itens
+		cont = 0
+		for i in session.itens:
+			cont += 1
+		carrinho = SPAN(cont, _id="carrinho", _class="badge bg-green	")
+	else:
+		carrinho = SPAN('0', _id="carrinho", _class="badge bg-orange")
+	# fim qtd 
 
 	produtos = db(db.produtos.codigo_produto == codigo)
+	preco = double_real(produtos.select('preco_produto_lojinha')[0].preco_produto_lojinha).real()
+	nome = (produtos.select('nome_produto')[0].nome_produto).upper()
+	descricao = produtos.select('descricao')[0].descricao
 	img = URL('default','download',args=produtos.select('foto_produto')[0].foto_produto)
 
-	# tem na lista
-	iten_na_lista = False
-	id_iten = 0
-	for i in session.itens:
+	itens = session.itens
+	obs = ''
+	existe = False
+	for i in itens:
+		idd = itens.index(i)
 		if i['cod'] == codigo:
-			id_iten = session.itens.index(i)
-			if i['obs'] != "":
-				iten_na_lista = True
-				break
+			obs = i['obs']
+			existe = True
 
-	if iten_na_lista:
-		iten = session.itens
-		conteudo_obs = iten[id_iten]['obs']
+	if existe:
+		del_iten = BUTTON('excluir', _onclick="excluir()", _type="button", _id="excluir", _class="btn btn-danger btn-lg")
 	else:
-		conteudo_obs = ""	
+		del_iten = ''
+		pass
+
+	return locals()
+
+def add_item():
+	# se não existir nenhuma venda crie o codigo da venda
+	if not session.codigo_venda:
+		now = datetime.now()
+		session.codigo_venda =  now.strftime("%y%m%d""%S%M%H")
 
 
-	body_modal = HTML(
-		DIV(IMG(_src=img, _id="exp_img", _alt=""), _class="col-md-8 col-sm-8 col-xs-8"),
-   		DIV(H2(produtos.select('nome_produto')[0].nome_produto),
-			P('descricao bla bla bla'),
-			BR(),
-			DIV(H1(double_real(produtos.select('preco_produto_lojinha')[0].preco_produto_lojinha).real(), _class="price"),
-				SPAN('Ex Tax: Ksh80.00', _class="price-tax"),
-				BR(),
-				_class="product_price"),
-			P('Digite aqui suas OBS:'),
-			TEXTAREA(conteudo_obs,_class="input-lg", _id="obs", _placeholder="teste"),
-		 	_class="col-md-4 col-sm-4 col-xs-4")
-		
-		)
-	return body_modal
+	#get
+	index = request.vars.transitory
+	index = index.split(';')
+	quantidade = index[2]
+	codigoPeca = index[0]
+	obs = index[1]
+
+	#gravar no session.itens todos os itens
+	itens = session.itens
+	existe = False
+	# se o iten existir na session.iten update na qtd do iten na lista
+	for i in itens:
+		idd = itens.index(i)
+		if i['cod'] == codigoPeca:
+			existe = True
+			itens[idd]['qtd'] = quantidade
+			itens[idd]['obs'] = obs
+			break
+
+	# so add na lista se o item não existir nela 
+	if existe == False:		
+		itens.append({"cod":codigoPeca,"qtd":quantidade, "obs":obs})
+
+	session.itens = itens
+
+
+def excluir_item():
+	codigo = request.vars.transitory
+	
+	#gravar no session.itens todos os itens
+	itens = session.itens
+	existe = False
+	# se o iten existir na session.iten update na qtd do iten na lista
+	for i in itens:
+		if i['cod'] == codigo:
+			itens.remove(i)
+			break
+
+	session.itens = itens
 
 def add_carrinho():	
     # se não existir nenhuma venda crie o codigo da venda
@@ -113,12 +237,12 @@ def add_carrinho():
     index = request.vars.transitory
     index = index.split(';')
     
-    quantidade = index[0]
+    quantidade = index[2]
     
-    codigoPeca = index[1]
+    codigoPeca = index[0]
 
-    obs = index[2]
-
+    obs = index[1]
+    print "%s - %s - %s"%(quantidade,codigoPeca, obs)
     #gravar no session.itens todos os itens
     itens = session.itens
     existe = False
@@ -129,7 +253,7 @@ def add_carrinho():
     	if i['cod'] == codigoPeca:
     		existe = True
     		itens[idd]['qtd'] = quantidade
-    		itens[idd]['obs'] = 'lll'
+    		# itens[idd]['obs'] = 'lll'
     		break
 
     # so add na lista se o item não existir nela 

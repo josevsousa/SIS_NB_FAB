@@ -47,9 +47,7 @@ div#datatable_filter {
 img#exp_img {
     width: 100%;
 }
-input.input-lg {
-    width: 89px;
-}span.badge.bg-green {
+span.badge.bg-green {
     font-size: inherit;
 }
 tbody tr:hover {
@@ -81,218 +79,27 @@ textarea#obs {
         $('#datatable').on('click','tr', function(){
             var tr = $(this);
             var iten = $(tr)[0];
+            // col 3
             var valor = iten.children[3];
+            var iten_separados = valor.children[0];//span dentro da coluna
+            if (iten_separados == undefined) {
+              iten_separados = 0;
+            } else {
+              iten_separados = iten_separados.textContent;
+            }
+            
             var codigo = iten.children[1].textContent;
-            $('#transitory').val(codigo);
-    
              //================== MODAL ======          
             var titulo = '<span class="badge bg-green">6</span> itens na sua lista. Somando o Total de <b>R$'+ 55.55+'</b>';
 
-             ajax('montar_modal',['transitory'],'tela_modal');
- 
-            // ver se tem item
-            if(valor.children[0]){
-              input_qtde.value = valor.children[0].textContent;
-              contem_item = true;
-            } else {
-              input_qtde.value = 1;
-              contem_item = false;
-            }
-
-
-
-            //chama o modal            
-            $('#myModal').modal('show');
-            
-            //quando o modal abrir faça
-            $('#myModal').on('shown.bs.modal', function () {
-              // busca se o iten existe na lista 
-                         // monta o modal
- 
-              
-            });
-
-            //botao gravar do modal
-            $('#gravar').on('click',function(){
-
-                // ativa a row
-                // $(tr).addClass('iten_add');
-
-                //pega valor do input 
-                var qt = $('#input_qtde').val();
-                var obs = $('#obs').val();
-                // // valor do iten
-                // var textValor = valor.textContent;  
-
-                // // adciona o span com a qt na row
-                // $(valor).html(textValor+'<span class="badge bg-green qt">'+qt+'</span>');
-
-                // // somar o carrinho + 1
-                // var itensCarrinho = parseInt($("#carrinho").text());
-                // $('#carrinho').text(itensCarrinho+1).removeClass('bg-orange').addClass('bg-green');   
-
-
-
-                $('#transitory').val(qt+";"+codigo+";"+obs);
-                $('#gravar').text('gravando...').removeClass('btn-default').addClass('btn-info')
-
-                ajax('add_carrinho',['transitory']);
-               
-                location.reload();
-
-
-                // $("#myModal").modal('hide');
-                // location.reload();
-
-             })
-                
-            //quando o modal fechar
-            $('#myModal').on('hide.bs.modal', function () {
-                
-                //reload na pagina pra carregar as alteracoes na tabela
-            })
-
-            //==== FIM MODAL ======
-            });
+            $(location).attr('href',"e_commerce?cod="+codigo+'&qtd='+iten_separados);
+        });
   });
 </script>
-<input type="text" id="transitory" name="transitory" style="display:none"></input>
 
-<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <!-- <div class="minha_alert" role="alert">
-        <strong>Warning!</strong> Better check yourself, you're not looking too good.
-      </div> -->  
-      <div id="modal-body">
-        <!-- bory -->
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-              <div id="tela_modal">
-                
-              </div>
-            <!-- D -->
-            <div class="col-md-4 col-sm-4 col-xs-4">
-                <p>Digite a quantidade de peças:</p>  
-                <div> 
-                  <input type="number" id="input_qtde" name="input_qtde" class="input-lg" value=1 min="1"></input>
-                  <button type="button" id="gravar" class="btn btn-default btn-lg">Add ao pedido</button>
-                </div>     
-              <h2 class="prod_title">Importante!!</h2>
-              <p>A foto ao lado é ilustrativa pra mostrar o <b> modelo da peça </b>, as cores e estampas são aleatórias mantendo
-              apenas o estilo "menino ou menina". Quanto ao tamanho você poderá especificar no campo comentário exp: 30 peça <b>(10 P), (10 M), (10 G)</b>
-              </p> 
-              <div id="x">
-                
-              </div>
-            </div><!-- fim do D --> 
-          </div>           
-        </div>
-        <!-- fim do bory -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- <button type="button" id="gravar"  class="btn btn-primary">Add a lista</button> -->
-      </div>
-
-    </div>
-  </div>
-</div>
+<!-- =========================  table ================================= --> 
+{{=tabela}}
 <!-- =========================  table ================================= -->
-<div class="col-md-12 col-sm-12 col-xs-12">
-
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Tabela de preços<small>Preço de atacado</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: <code>$().DataTable();</code>
-                    </p>
-                    <table id="datatable" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                          <th class="foto"></th>
-                          <th class="codigo">Código</th>
-                          <th class="nome">Nome</th>
-                          <th class="vu">valor</th>
-                        </tr>
-                      </thead>
-
-
-                      <tbody>
-                      {{
-                        for produto in produtos:
-                          foto = IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-min",_width="80px")
-                          
-                          #tem foto entao mostre o iten  
-                          if produto.foto_produto:
-                              codigo = produto.codigo_produto #codigo do iten 
-
-
-                              existe = False
-                              qtde_item = ''
-                              if session.itens:
-                                  for i in session.itens:
-                                      if i['cod'] == codigo:
-                                          existe = True
-                                          qtde_item = i['qtd']
-                                      pass
-                                  pass        
-                              pass
-
-                              if existe: 
-                                  }}
-                                    <tr class="iten_add">
-                                      <td class="foto">
-                                      <!-- ==========foto=========== -->
-                                        {{=IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-produto",_alt="")}}
-                                      <!-- ==========foto=========== -->                            
-                                      </td>
-                                      <td class="codigo">{{=codigo}}</td>
-                                      <td class="nome">{{=produto.nome_produto}}</td>
-                                      <td class="vu">{{= double_real(float(produto.preco_produto_lojinha)).real()}}<span class="badge bg-green qt">{{=qtde_item}}</span>
-                                      <a class="close-iten"><i class="fa fa-close"></i></a>
-                                      </td>
-                                    </tr>
-                                  {{
-                              else:
-                                  }}
-                                    <tr>
-                                      <td class="foto">
-                                      <!-- ==========foto=========== -->
-                                        {{=IMG(_src=URL('default','download',args=produto.foto_produto),_class="img-produto",_alt="")}}
-                                      <!-- ==========foto=========== -->                            
-                                      </td>
-                                      <td class="codigo">{{=codigo}}</td>
-                                      <td class="nome">{{=produto.nome_produto}}</td>
-                                      <td class="vu">{{= double_real(float(produto.preco_produto_lojinha)).real()}}</td>
-                                    </tr>
-                                  {{  
-                              pass 
-
-                          pass
-                       pass
-                       }}  
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>  
-<!-- =========================  table ================================= -->
-
 
 <!-- Bootstrap -->
 <script src="{{=URL('static','gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
