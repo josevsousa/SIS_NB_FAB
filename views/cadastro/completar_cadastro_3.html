@@ -1,0 +1,268 @@
+{{extend 'layoutNthema.html'}}
+<!-- Bootstrap -->
+<link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="{{=URL('static','gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{=URL('static','gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
+<!-- NProgress -->
+<link href="{{=URL('static','gentelella-master/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{=URL('static','gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
+
+<style>
+label.control-label.col-md-3.col-sm-3.col-xs-12.l-2333 {
+    padding-top: 0px;
+}
+/*.alert {
+    float: left;
+    margin: 0 0 0 20px;
+    padding: 3px 10px;
+    color: #FFF;
+    border-radius: 3px 4px 4px 3px;
+    background-color: #CE5454;
+    max-width: 170px;
+    white-space: pre;
+    position: relative;
+    left: -15px;
+    opacity: 0;
+    z-index: 1;
+    transition: 0.15s ease-out;
+}
+.alert::after {
+    content: '';
+    display: block;
+    height: 0;
+    width: 0;
+    border-color: transparent #CE5454 transparent transparent;
+    border-style: solid;
+    border-width: 11px 7px;
+    position: absolute;
+    left: -13px;
+    top: 1px;
+} */ 
+</style>
+
+
+
+<!-- Datatables -->
+<!-- <link href="{{=URL('static','gentelella-master/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet"> -->
+
+<!-- iCheck -->
+<link href="{{=URL('static','gentelella-master/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
+
+<!-- =========================  body ================================= --> 
+ <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Form Design <small>different form elements</small></h2>
+                    <!-- <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul> -->
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 l-2333" for="first-name">Tipo 
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                                     
+                        Pessoa Jurídica:
+                        <input type="radio" class="flat" name="gender" id="juridica" value="M" checked="" required /> Pessoa Física:
+                        <input type="radio" class="flat" name="gender" id="fisica" value="F" />
+                      </div>
+                    </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Nome Empresa">Nome Empresa <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12 parsley-error">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cpf_cnpj">CNPJ <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cpf_cnpj">INSC <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Celular</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                        </div>
+                      </div>
+                      <!-- <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div id="gender" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                              <input type="radio" name="gender" value="female"> Female
+                            </label>
+                          </div>
+                        </div>
+                      </div> -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefone
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">CEP</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">UF</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cidade</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Bairro</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Endereço</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                        </div>
+                      </div>
+
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button type="submit" class="btn btn-primary">Cancel</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
+                          <a  class="btn btn-success">Submit</a>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+<!-- =========================  body ================================= -->
+
+<!-- jQuery -->
+<script src="{{=URL('static','gentelella-master/vendors/jquery/dist/jquery.min.js')}}"></script>
+<!-- Bootstrap -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{=URL('static','gentelella-master/vendors/fastclick/lib/fastclick.js')}}"></script>
+<!-- NProgress -->
+<script src="{{=URL('static','gentelella-master/vendors/nprogress/nprogress.js')}}"></script>
+<!-- bootstrap-progressbar -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+<!-- iCheck -->
+<script src="{{=URL('static','gentelella-master/vendors/iCheck/icheck.min.js')}}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{=URL('static','gentelella-master/production/js/moment/moment.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/production/js/datepicker/daterangepicker.js')}}"></script>
+<!-- bootstrap-wysiwyg -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/jquery.hotkeys/jquery.hotkeys.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/google-code-prettify/src/prettify.js')}}"></script>
+<!-- jQuery Smart Wizard -->
+<script src="{{=URL('static','gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
+<!-- jQuery Tags Input -->
+<script src="{{=URL('static','gentelella-master/vendors/jquery.tagsinput/src/jquery.tagsinput.js')}}"></script>
+<!-- Switchery -->
+<script src="{{=URL('static','gentelella-master/vendors/switchery/dist/switchery.min.js')}}"></script>
+ <!-- Custom Theme Scripts -->
+<script src="{{=URL('static','gentelella-master/build/js/custom.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{=URL('static','gentelella-master/vendors/select2/dist/js/select2.full.min.js')}}"></script>
+<!-- Parsley -->
+<script src="{{=URL('static','gentelella-master/vendors/parsleyjs/dist/parsley.min.js')}}"></script>
+<!-- Autosize -->
+<script src="{{=URL('static','gentelella-master/vendors/autosize/dist/autosize.min.js')}}"></script>
+<!-- jQuery autocomplete -->
+<script src="{{=URL('static','gentelella-master/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js')}}"></script>
+<!-- starrr -->
+<script src="{{=URL('static','gentelella-master/vendors/starrr/dist/starrr.js')}}"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="{{=URL('static','gentelella-master/build/js/custom.min.js')}}"></script>
+
+    <!-- Starrr -->
+    <script>
+      $(document).ready(function() {
+        $(".stars").starrr();
+
+        $('.stars-existing').starrr({
+          rating: 4
+        });
+
+        $('.stars').on('starrr:change', function (e, value) {
+          $('.stars-count').html(value);
+        });
+
+        $('.stars-existing').on('starrr:change', function (e, value) {
+          $('.stars-count-existing').html(value);
+        });
+      });
+    </script>
+    <!-- /Starrr -->
+
+
+
+
+
+ <!-- Datatables -->
+<!-- <script src="{{=URL('static','gentelella-master/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/jszip/dist/jszip.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/pdfmake/build/pdfmake.min.js')}}"></script> -->

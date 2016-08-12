@@ -37,15 +37,20 @@ def listarProdutos():
 
 	return dict(formListar=produtos, ultima_porcentage=ultima_porcentage, ultima_alteracao=ultima_alteracao)
 
-# @auth.requires_membership('pedido_externo') 
-def confirmar():
-	d = 'Estamos analisando consultando os seus dados de cadastro! após aprovação enviamos um emal avisando que esta liberado o acesso!'
-	return locals()
-
 
 def tableSimples():
 	d = 'ddd'
 	return locals()
+
+
+
+                  # <a href="invoice" class="dropdown-toggle info-number" >
+                  #   <i class="fa fa-shopping-cart"></i>
+                  #   {{=carrinho}}
+                  # </a>
+
+
+
 
 #---------------------- EXTERNO --------------------------- 
 @auth.requires_membership('pedido_via_site')
@@ -55,13 +60,16 @@ def externo_itens():
     	cont = 0
     	for i in session.itens:
     		cont += 1
-    			
-        carrinho = SPAN(cont, _id="carrinho", _class="badge bg-green	")
+    	
+        carrinho = A(I(_class="fa fa-shopping-cart"),
+        	SPAN(cont, _id="carrinho", _class="badge bg-green"),
+        	_href="invoice", _class="dropdown-toggle info-number")
     else:
-        carrinho = SPAN('0', _id="carrinho", _class="badge bg-orange")
-    pass
+        carrinho = A(I(_class="fa fa-shopping-cart"),
+        	SPAN('0', _id="carrinho", _class="badge bg-green"),
+        	_href="#", _class="dropdown-toggle info-number")
+
     produtos = db(db.produtos.id>0).select()
-    # session.itens = [{'cod':62,'qtd':5}]
 
     tabela = tabela_preco(produtos)
 
@@ -152,13 +160,19 @@ def e_commerce():
 		cont = 0
 		for i in session.itens:
 			cont += 1
-		carrinho = SPAN(cont, _id="carrinho", _class="badge bg-green	")
+
+		carrinho = A(I(_class="fa fa-shopping-cart"),
+        	SPAN(cont, _id="carrinho", _class="badge bg-green"),
+        	_href="invoice", _class="dropdown-toggle info-number")
 	else:
-		carrinho = SPAN('0', _id="carrinho", _class="badge bg-orange")
+		carrinho = A(I(_class="fa fa-shopping-cart"),
+        	SPAN('0', _id="carrinho", _class="badge bg-green"),
+        	_href="#", _class="dropdown-toggle info-number")
 	# fim qtd 
 
 	produtos = db(db.produtos.codigo_produto == codigo)
-	preco = double_real(produtos.select('preco_produto_lojinha')[0].preco_produto_lojinha).real()
+	preco_sem_formatacao = produtos.select('preco_produto_lojinha')[0].preco_produto_lojinha
+	preco = double_real(preco_sem_formatacao).real()
 	nome = (produtos.select('nome_produto')[0].nome_produto).upper()
 	descricao = produtos.select('descricao')[0].descricao
 	img = URL('default','download',args=produtos.select('foto_produto')[0].foto_produto)
@@ -184,7 +198,8 @@ def add_item():
 	# se não existir nenhuma venda crie o codigo da venda
 	if not session.codigo_venda:
 		now = datetime.now()
-		session.codigo_venda =  now.strftime("%y%m%d""%S%M%H")
+		session.codigo_venda =  now.strftime("%y%m%d%S%M%H")
+		session.data_venda = now.strftime("%d/%m/%Y")
 
 
 	#get
@@ -212,7 +227,6 @@ def add_item():
 
 	session.itens = itens
 
-
 def excluir_item():
 	codigo = request.vars.transitory
 	
@@ -227,47 +241,51 @@ def excluir_item():
 
 	session.itens = itens
 
-def add_carrinho():	
-    # se não existir nenhuma venda crie o codigo da venda
-    if not session.codigo_venda:
-        now = datetime.now()
-        session.codigo_venda =  now.strftime("%y%m%d""%S%M%H")
-     
-    #get
-    index = request.vars.transitory
-    index = index.split(';')
-    
-    quantidade = index[2]
-    
-    codigoPeca = index[0]
-
-    obs = index[1]
-    print "%s - %s - %s"%(quantidade,codigoPeca, obs)
-    #gravar no session.itens todos os itens
-    itens = session.itens
-    existe = False
-    # se o iten existir na session.iten update na qtd do iten na lista
-    for i in itens:
-    	idd = itens.index(i)
-    	print idd
-    	if i['cod'] == codigoPeca:
-    		existe = True
-    		itens[idd]['qtd'] = quantidade
-    		# itens[idd]['obs'] = 'lll'
-    		break
-
-    # so add na lista se o item não existir nela 
-    if existe == False:		
-    	itens.append({"cod":codigoPeca,"qtd":quantidade, "obs":obs})
-
-    session.itens = itens
+def invoice():
+	tbody = [] 
+	# produtos = db(db.produtos.codigo_produto == codigo)
+	# preco_sem_formatacao = produtos.select('preco_produto_lojinha')[0].preco_produto_lojinha
+	# preco = double_real(preco_sem_formatacao).real()
+	# nome = (produtos.select('nome_produto')[0].nome_produto).upper()
 
 
-    return locals() 
+	# criar os TRs
+	itens = session.itens
 
+	subTotalGeral = 0
+	total = 0
+	for i in itens:
+		subTotalIten = 0
+		idd = itens.index(i)
+		qtd = i['qtd']
+		cod = i['cod']
+		produtos = db(db.produtos.codigo_produto == cod)
+		nome = produtos.select('nome_produto')[0].nome_produto
+		preco = produtos.select('preco_produto_lojinha')[0].preco_produto_lojinha
+		subTotalIten += preco*int(qtd)
+		subTotalGeral += subTotalIten
+		descricao = produtos.select('descricao')[0].descricao
+		# verrr aqui -----------------------
+		tr = TR(TD(qtd),TD(nome),TD(cod),TD(descricao),TD(double_real(preco).real()),TD(double_real(subTotalIten).real()))
+		tbody.append(tr)
+
+	#conta itens
+	cont = 0
+	for i in session.itens:
+		cont += 1
+	carrinho = A(I(_class="fa fa-shopping-cart"),
+    	SPAN(cont, _id="carrinho", _class="badge bg-green"),
+    	_href="#", _class="dropdown-toggle info-number")
+	return locals()
+
+def teste():
+
+	retorno = "jose"
+	return retorno
 #---------------------- FIM EXTERNO ---------------------------	
 
 def modelo():
+	carrinho = SPAN('0', _id="carrinho", _class="badge bg-orange")
 	return locals()
 
 

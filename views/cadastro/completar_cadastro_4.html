@@ -1,0 +1,365 @@
+{{extend 'layoutNthema.html'}}
+<!-- Bootstrap -->
+<link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="{{=URL('static','gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{=URL('static','gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
+
+<!-- Datatables -->
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+<!-- iCheck -->
+<link href="{{=URL('static','gentelella-master/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
+<style>
+.right_col.v {
+    margin-left: 0px !important;
+}	
+label.control-label.col-md-3.col-sm-3.col-xs-12.tipo {
+    padding-top: 0;
+}
+.erros {
+    border-color: #E91E63;
+    color: #E91E63;
+    background: #FFF6F9;
+}
+.valido{
+  color:#000;
+  background-color: #FFF;
+}
+.meuForm table {
+    width: 100%;
+}
+
+td.w2p_fl {
+    width: 30%;
+}
+#meuForm label{
+    float: right;
+    padding: 4px 24px 0px 0;
+}
+
+
+.error {
+    color: #E91E63;
+}
+.col-sm-9 {
+    width: 59% !important;
+}
+</style>
+<!-- =========================  body ================================= --> 
+        <!-- page content -->
+        <div class="right_col v"  role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Form Wizards</h3>
+              </div>
+
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Form Basic Elements <small>different form elements</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content" >
+                    <br />
+                    <form class="form-horizontal form-label-left">
+                      <!-- TIPO -->
+                      <!-- <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12 tipo">Tipo</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            Pessoa Jurídica:
+                            <input type="radio" class="flat" name="gender" id="genderM" value="juridica" checked required /> Pessoa Física:
+                            <input type="radio" class="flat" name="gender" id="genderF" value="fisica" />
+                        </div>
+                      </div> -->
+                      <!-- TIPO -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tipo</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <select class="select2_single form-control" id="tipo" tabindex="-1">
+                            <option value="juridica"> PESSOA JURÍDICA</option>
+                            <option value="fisica"> PESSOA FÍSICA</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <!-- EMPRESA -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Empresa</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" id="empresa" >
+                        </div>
+                      </div>  
+
+                      <!-- CELULAR COM OPERADORA -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Celular</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" id="celular" data-inputmask="'mask' : '(99) 99999-9999'">
+                        </div>
+                        <label class="control-label col-md-1 col-sm-1 col-xs-12">Operadora</label>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                          <select class="select2_single form-control" id="operadora" tabindex="-1">
+                            <option></option>
+                            <option value="TIM">TIM</option>
+                            <option value="OI">OI</option>
+                            <option value="VIVO">VIVO</option>
+                            <option value="CLARO">CLARO</option>
+                            <option value="FIXO">FIXO</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <!-- TELEFONE -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefone</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" id="Telefone" data-inputmask="'mask' : '(99) 9999-9999'">
+                        </div>
+                      </div>                      
+
+                      <!-- EMAIL -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">E-mail</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" id="Email" >
+                        </div>
+                      </div>                     
+
+                      <!-- CNPJ/CPF -->
+                      <div class="form-group">
+                        <label id="label_cnpj" class="control-label col-md-3 col-sm-3 col-xs-12">CNPJ</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12" id="cnpj_valida">
+                          <input type="text" class="form-control" name="cnpj" id="cnpj" >
+                        </div>
+                      </div>                     
+
+                      <!-- INSC -->
+                      <div class="form-group" id="label_insc">
+                        <label  class="control-label col-md-3 col-sm-3 col-xs-12">INSC</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" id="insc" >
+                        </div>
+                      </div>
+
+                      <!-- CEP -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">CEP</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" id="CEP" data-inputmask="'mask' : '99999-999'">
+                        </div>
+                      </div>                     
+
+                      <!-- ENDERECO NUMERO -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Endereço</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control " id="endereco" >
+                        </div>
+                        <label class="control-label col-md-1 col-sm-1 col-xs-12">Número</label>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                          <input type="text" class="form-control" id="numero" >
+                        </div>
+                      </div>
+
+                      <!-- CIDADE UF -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Cidade</label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                          <input type="text" class="form-control" id="cidade" >
+                        </div>
+                        <label class="control-label col-md-1 col-sm-1 col-xs-12">UF</label>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                          <select class="select2_single form-control" id="estado" tabindex="-1">
+                            <option></option>
+                            <option value="TIM">TIM</option>
+                            <option value="OI">OI</option>
+                            <option value="VIVO">VIVO</option>
+                            <option value="CLARO">CLARO</option>
+                            <option value="FIXO">FIXO</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <!-- BAIRRO -->
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Bairro</label>
+                        <div class="col-md-7 col-sm-7 col-xs-12">
+                          <input type="text" class="form-control" id="Bairro" >
+                        </div>
+                      </div>                       
+
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-3">
+                          <button type="submit" class="btn btn-primary">Cancel</button>
+                          <a class="btn btn-success" id="enviar">Enviar</a>
+                        </div>
+                      </div>
+
+                    </form>
+                    <br/>
+                    {{=form_}}
+                    
+                  </div>
+                </div>
+              </div>
+             </div><!--fim da row--> 
+        </div>
+       </div> 
+        <!-- /page content -->
+<!-- =========================  body ================================= -->
+
+
+<!-- Bootstrap -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+
+    <!-- Datatables -->
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/jszip/dist/jszip.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+
+    <!-- jQuery Smart Wizard -->
+    <script src="{{=URL('static','gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
+    <!-- iCheck -->
+    <script src="{{=URL('static','gentelella-master/vendors/iCheck/icheck.min.js')}}"></script>
+    <!-- Switchery -->
+    <script src="{{=URL('static','gentelella-master/vendors/switchery/dist/switchery.min.js')}}"></script>
+     <!-- Custom Theme Scripts -->
+    <script src="{{=URL('static','gentelella-master/build/js/custom.min.js')}}"></script>
+    <!-- jquery.inputmask -->
+    <script src="{{=URL('static','gentelella-master/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js')}}"></script>
+
+   <!-- Datatables -->
+    <script>
+      $(document).ready(function() {
+
+        $(":input").inputmask();
+
+        // valida o tipo de cliente
+        $("#tipo").on('change',function(){
+          var tipo = this.value
+          if (tipo == 'fisica') {
+            $('#label_cnpj').text('CPF');
+            $('#label_insc').slideUp(500);
+          } else {
+            $('#label_cnpj').text('CNPJ');
+            $('#label_insc').slideDown(500);
+          }
+          
+        })
+
+
+        //valida na entrada
+        $('input, select').on('focus',function(){
+          $(this).removeClass('erros')
+        })
+
+        // valida na saida
+        // $('input, select').on('blur',function(){
+        //   var v = this.value
+        //   if (v == '') {
+        //     $(this).addClass('erros')
+        //   } 
+        // })
+        
+        // ------- CNPJ --------
+        // valida na entrada
+        $('#cnpj').on('focus',function(){
+          $('#cnpj').removeClass('erros');
+        });
+        // valida cnpj na saida
+        $('#cnpj').on('blur',function(){
+          // ajax('cnpj', ['cnpj'])
+        });
+        // ------- FIM CNPJ --------
+
+
+        // enviar
+        $('#enviar').on('click',function(){
+            var inputs = $('input[type=text], select')
+            for (var i = 0; i < inputs.length; i++) {
+              var input = inputs[i];
+              
+              if (input.value == '') {
+                var id = "#"+input.id
+                $(id).addClass('erros');
+              } 
+            }
+        })
+
+
+
+
+
+		 // $(".v").show();
+
+  //       $('#wizard').smartWizard();
+
+  //       $('#wizard_verticle').smartWizard({
+  //         transitionEffect: 'slide'
+  //       });
+
+  //       $('.buttonNext').addClass('btn btn-success');
+  //       $('.buttonPrevious').addClass('btn btn-primary');
+  //       $('.buttonFinish').addClass('btn btn-default');
+      });
+
+
+    </script>
+
+
+
+
+ <!--    <script>
+      function meuForm(){
+        $("#meuForm").addClass('meuForm')
+      }
+      {{#=script}}
+    </script> -->
+
+
+
+<!--   <script>
+    function hora(){
+      var d = new Date();
+      console.log(d)
+      }
+    var x = setInterval(hora,1000)
+  </script> -->
+

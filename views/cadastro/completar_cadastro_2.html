@@ -1,0 +1,185 @@
+{{extend 'layoutNthema.html'}}
+<!-- Bootstrap -->
+<link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="{{=URL('static','gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{=URL('static','gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
+
+<!-- Datatables -->
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+<!-- iCheck -->
+<link href="{{=URL('static','gentelella-master/vendors/iCheck/skins/flat/green.css')}}" rel="stylesheet">
+<style>
+.right_col.v {
+    margin-left: 0px !important;
+}	
+label.control-label.col-md-3.col-sm-3.col-xs-12.tipo {
+    padding-top: 0;
+}
+</style>
+<!-- =========================  body ================================= --> 
+        <!-- page content -->
+        <div class="right_col v"  role="main" style="display:none">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Form Wizards</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                              <button class="btn btn-default" type="button">Go!</button>
+                          </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Form Wizards <small>Sessions</small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <!-- Smart Wizard -->
+                    <p>This is a basic form wizard example that inherits the colors from the selected scheme.</p>
+                    <div id="wizard" class="form_wizard wizard_horizontal">
+                      <ul class="wizard_steps">
+                        <li>
+                          <a href="#step-1">
+                            <span class="step_no">1</span>
+                            <span class="step_descr">
+                                              Step 1<br />
+                                              <small>Step 1 description</small>
+                                          </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#step-2">
+                            <span class="step_no">2</span>
+                            <span class="step_descr">
+                                              Step 2<br />
+                                              <small>Step 2 description</small>
+                                          </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#step-3">
+                            <span class="step_no">3</span>
+                            <span class="step_descr">
+                                              Step 3<br />
+                                              <small>Step 3 description</small>
+                                          </span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#step-4">
+                            <span class="step_no">4</span>
+                            <span class="step_descr">
+                                              Step 4<br />
+                                              <small>Step 4 description</small>
+                                          </span>
+                          </a>
+                        </li>
+                      </ul>
+                      <div id="step-1">
+                        <form class="form-horizontal form-label-left">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12 tipo">Tipo</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                     
+      		                        Pessoa Jurídica:
+      		                        <input type="radio" class="flat" name="gender" id="genderM" value="juridica" checked="" required /> Pessoa Física:
+      		                        <input type="radio" class="flat" name="gender" id="genderF" value="fisica" />
+
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">EMPRESA <span class="required">*</span>
+                              </label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                
+                              </div></div>
+                            <div class="form-group">
+                              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">CPF/CNPJ</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
+                              </div></div>
+                            <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+                        </div></div>
+                        </form>
+                      </div>
+                      
+                      </div>
+                      {{=etapas}}
+                  </div>
+                    <!-- End SmartWizard Content -->
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </div> 
+        <!-- /page content -->
+<!-- =========================  body ================================= -->
+
+
+<!-- Bootstrap -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+
+
+    <!-- Datatables -->
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/jszip/dist/jszip.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+
+    <!-- jQuery Smart Wizard -->
+    <script src="{{=URL('static','gentelella-master/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')}}"></script>
+    <!-- iCheck -->
+    <script src="{{=URL('static','gentelella-master/vendors/iCheck/icheck.min.js')}}"></script>
+    <!-- Switchery -->
+    <script src="{{=URL('static','gentelella-master/vendors/switchery/dist/switchery.min.js')}}"></script>
+     <!-- Custom Theme Scripts -->
+    <script src="{{=URL('static','gentelella-master/build/js/custom.min.js')}}"></script>
+
+   <!-- Datatables -->
+    <script>
+      $(document).ready(function() {
+
+        $('#wizard').smartWizard();
+
+        // $('#wizard_verticle').smartWizard({
+        //   transitionEffect: 'slide'
+        // });
+
+        $('.buttonNext').addClass('btn btn-success');
+        $('.buttonPrevious').addClass('btn btn-primary');
+        $('.buttonFinish').addClass('btn btn-default');
+      });
+    </script>

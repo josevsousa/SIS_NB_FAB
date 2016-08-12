@@ -132,7 +132,7 @@ db.produtos.codigo_produto.requires = IS_NOT_IN_DB(db, db.produtos.codigo_produt
 # db.autoCompletProdutos.nome_produto.widget = SQLFORM.widgets.autocomplete(request, db.produtos.nome_produto, limitby=(0,5), min_length=2)
 
 OPERADORA = (' - ','TIM','OI','VIVO','CLARO','FIXO','NENHUMA')
-UF = ( " - ","AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO" )
+UF = ( "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO" )
 TIPO = ('Pessoa_física','Pessoa_jurídica')
 CATEGORIA = ('cliente','fornecedor','funcionario')
 
@@ -164,8 +164,8 @@ CATEGORIA = ('cliente','fornecedor','funcionario')
 
 Clientes = db.define_table('clientes',
     Field('tipo'),
-    Field('nome',label='Nome'), 
-    Field('apelido', label='Apelido'),
+    Field('nome',label='Empresa'), 
+    # Field('apelido', label='Apelido'),
     Field('celular', label='Cel.'),
     Field('operadora', default=' - '),
     Field('fixo', label='Tel.'),
@@ -176,17 +176,19 @@ Clientes = db.define_table('clientes',
     Field('cep', label='CEP'),
     Field('endereco', label='Endereço'),
     Field('numero' ,label='Número'),
-    Field('uf', label='UF', default=' - '),
+    Field('uf', label='UF'),
     Field('cidade', label='Cidade'),
     Field('bairro', label='Bairro'),
     Field('dataGravado','datetime', default=request.now, label="Data"),
     Field('foto_cliente','upload', label='Foto'),
+    Field('id_web',default=auth.user.id if auth.user else None,readable=False, writable=False),
     migrate = "clientes.table"
     )
 # db.clientes.cpf.requires = IS_CPF(), IS_NOT_IN_DB(db, db.clientes.cpf, error_message="CEP já existe") 
-db.clientes.cnpj_cpf.requires = IS_CPF_OR_CNPJ(), IS_NOT_IN_DB(db, db.clientes.cnpj_cpf, error_message="CNPJ/ ou CPF já existe")
 # db.clientes.email.requires = IS_EMAIL(error_message='Email inválido!!')
-db.clientes.nome.requires = IS_NOT_IN_DB(db, db.clientes.nome, error_message = 'Usuario invalido')
+
+# db.clientes.cnpj_cpf.requires = IS_CPF_OR_CNPJ(), IS_NOT_IN_DB(db, db.clientes.cnpj_cpf, error_message="CNPJ/ ou CPF já existe")
+# db.clientes.nome.requires = IS_NOT_IN_DB(db, db.clientes.nome, error_message = 'Usuario invalido')
 db.clientes.uf.requires = IS_IN_SET(UF, error_message="UF invalido!!!")
 db.clientes.operadora.requires = IS_IN_SET(OPERADORA, error_message="Operadora invalida!!!")
 db.clientes.tipo.requires = IS_IN_SET(TIPO, error_message="Tipo inválido!!!") 
@@ -257,9 +259,7 @@ Representantes = db.define_table('representantes',
     Field('uf', label='UF', default=' - '),
     Field('cidade', label='Cidade'),
     Field('bairro', label='Bairro'),
-    Field('apelido', label='Apelido'),
-    Field('dataGravado','datetime', default=request.now, label="Data"),
-    Field('foto_representante','upload', label='Foto'),
+
     migrate = "representante.table"
     )
 db.representantes.cnpj_cpf.requires = IS_CPF_OR_CNPJ(), IS_NOT_IN_DB(db, db.representantes.cnpj_cpf, error_message="CNPJ/ ou CPF já existe")

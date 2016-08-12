@@ -1,0 +1,274 @@
+{{extend 'layoutNthema.html'}}
+
+<!-- Bootstrap -->
+<link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="{{=URL('static','gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{=URL('static','gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
+
+<!-- bootstrap-wysiwyg -->
+<link href="{{=URL('static','gentelella-master/vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
+<!-- Select2 -->
+<link href="{{=URL('static','gentelella-master/vendors/select2/dist/css/select2.min.css')}}" rel="stylesheet">
+<!-- Switchery -->
+<link href="{{=URL('static','gentelella-master/vendors/switchery/dist/switchery.min.css')}}" rel="stylesheet">
+<!-- starrr -->
+<link href="{{=URL('static','gentelella-master/vendors/starrr/dist/starrr.css')}}" rel="stylesheet">
+ 
+<!-- jQuery -->
+<script src="{{=URL('static','gentelella-master/vendors/jquery/dist/jquery.min.js')}}"></script>
+<!-- Bootstrap -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{=URL('static','gentelella-master/vendors/fastclick/lib/fastclick.js')}}"></script>
+<!-- iCheck -->
+<script src="{{=URL('static','gentelella-master/vendors/iCheck/icheck.min.js')}}"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="{{=URL('static','gentelella-master/build/js/custom.min.js')}}"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="{{=URL('static','gentelella-master/production/js/moment/moment.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/production/js/datepicker/daterangepicker.js')}}"></script>
+<!-- bootstrap-wysiwyg -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/jquery.hotkeys/jquery.hotkeys.js')}}"></script>
+<script src="{{=URL('static','gentelella-master/vendors/google-code-prettify/src/prettify.js')}}"></script>
+<!-- jQuery Tags Input -->
+<script src="{{=URL('static','gentelella-master/vendors/jquery.tagsinput/src/jquery.tagsinput.js')}}"></script>
+<!-- Switchery -->
+<script src="{{=URL('static','gentelella-master/vendors/switchery/dist/switchery.min.js')}}"></script>
+<!-- Select2 -->
+<script src="{{=URL('static','gentelella-master/vendors/select2/dist/js/select2.full.min.js')}}"></script>
+<!-- Parsley -->
+<script src="{{=URL('static','gentelella-master/vendors/parsleyjs/dist/parsley.min.js')}}"></script>
+<!-- Autosize -->
+<script src="{{=URL('static','gentelella-master/vendors/autosize/dist/autosize.min.js')}}"></script>
+<!-- jQuery autocomplete -->
+<script src="{{=URL('static','gentelella-master/vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js')}}"></script>
+<!-- starrr -->
+<script src="{{=URL('static','gentelella-master/vendors/starrr/dist/starrr.js')}}"></script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#enviando').on('click', function(){
+        ajax('teste',['transitory'], 'codigo_view')
+    })
+    // start botao do iphone
+        // $(".stars").starrr();
+
+        // $('.stars-existing').starrr({
+        //   rating: 4
+        // });
+
+        // $('.stars').on('starrr:change', function (e, value) {
+        //   $('.stars-count').html(value);
+        // });
+
+        // $('.stars-existing').on('starrr:change', function (e, value) {
+        //   $('.stars-count-existing').html(value);
+        // });
+    // fim botao do iphone
+  });
+</script>
+<style>
+span#codigo_view {
+    background: #040404;
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: antiquewhite;
+}
+.count.green {
+    font-size: 4em;
+    font-weight: 600;
+}
+select#formaPagamento {
+    width: 32%;
+}
+</style>
+
+<div>
+<div class="page-title">
+              <div class="title_left">
+                <h3>Fechamento do pedido
+                <a href="externo_itens.html" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> voltar</a>
+                </h3>
+              </div>
+
+            </div>
+<div class="clearfix"></div>
+<div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Tela do Caixa <small>Ultima etapa para fechar seu pedido</small></h2>
+<!--                     <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="#">Settings 1</a>
+                          </li>
+                          <li><a href="#">Settings 2</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul> -->
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <section class="content invoice">
+                      <!-- title row -->
+                      <div class="row">
+                        <div class="col-xs-12 invoice-header">
+                          <h1>
+                                          <i class="fa fa-globe"></i> Meu Pedido.
+                                          <small class="pull-right">Date: {{=session.data_venda}}</small>
+                                      </h1>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- info row -->
+                      <div class="row invoice-info">
+                        <div class="col-sm-4 invoice-col">
+                          De:
+                          <address>
+                                          <strong>NALLUBABY, VESTUÁRIO LTDA.</strong>
+                                          <br>Fernandes Vieira 234, José Pinheiro
+                                          <br>Campina Grande, PB 58407-409
+                                          <br>Tel: (83) 3322-8273
+                                          <br>Email: nallu.paiva@gmail.com
+                                      </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                          Para:
+                          <address>
+                                          <strong>{{="%s %s"%((auth.user.first_name).upper(), (auth.user.last_name).upper())}}</strong>
+                                          <br>795 Freedom Ave, Suite 600
+                                          <br>New York, CA 94107
+                                          <br>Phone: 1 (804) 123-9876
+                                          <br>Email: jon@ironadmin.com
+                                      </address>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-sm-4 invoice-col">
+                          <b>Pedido: <span id="codigo_view">{{=session.codigo_venda}}<span></b>
+                          <br>
+                          <br>
+                          <b>Order ID:</b> 4F3S8J
+                          <br>
+                          <b>Payment Due:</b> 2/22/2014
+                          <br>
+                          <b>Account:</b> 968-34567
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- Table row -->
+                      <div class="row">
+                        <div class="col-xs-12 table">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Qtd</th>
+                                <th>Produto</th>
+                                <th>Código</th>
+                                <th style="width: 59%">Descrição</th>
+                                <th>Valor Uni</th>
+                                <th>Valor Total</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {{=TBODY(tbody)}}
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <div class="row">
+                        <!-- accepted payments column -->
+                        <div class="col-xs-6">
+                          <p class="lead">Formas de pagamento:</p>
+                         <!--  <p>
+                              <label>Escolha aqui :</label>
+                            
+                              <select class="btn btn-default" name="formaPagamento" >
+                                  <option value="0"></option>
+                                  <option value="pagseguro">PagSeguro</option>
+                                  <option value="transferencia">Transferência</option>
+                              </select>
+                          </p> -->
+                          <img src="{{=URL('static','gentelella-master/production/images/visa.png')}}" alt="Visa">
+                          <img src="{{=URL('static','gentelella-master/production/images/mastercard.png')}}" alt="Mastercard">
+                          <img src="{{=URL('static','gentelella-master/production/images/american-express.png')}}" alt="American Express">
+                          <img src="{{=URL('static','gentelella-master/production/images/paypal.png')}}" alt="Paypal">
+                          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                            Escolha sua forma de pagamento campo acima! Ganhe 5% de desconto escolhendo a opção de pagamento por transferência bancaria.
+                          </p>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-6">
+                          <p class="lead">Data venda {{=session.data_venda}}</p>
+                          <div class="table-responsive">
+            <div class="">
+              <span class="count_top"><i class="fa fa-bar-chart"></i> TOTAL</span>
+              <div class="count green">{{=double_real(subTotalGeral).real()}}</div>
+              <!-- <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span> -->
+            </div>
+                          <!-- 
+                            <table class="table">
+                              <tbody>
+                                <tr>
+                                  <th style="width:50%">Subtotal:</th>
+                                  <td>{{=double_real(subTotalGeral).real()}}</td>
+                                </tr>
+                                <tr>
+                                  <th>Desconto (%)</th>
+                                  <td>R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                  <th>Arredondamento</th>
+                                  <td>R$ 0,00 </td>
+                                </tr>
+                                <tr>
+                                  <th>Total:</th>
+                                  <td>{{=double_real(subTotalGeral).real()}}</td>
+                                </tr>
+                              </tbody>
+                            </table> -->
+                          </div>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- this row will not appear when printing -->
+                      <div class="row no-print">
+                        <div class="col-xs-12">
+                            <label>Pagar com :</label>
+                              <select class="btn btn-default" name="formaPagamento" id="formaPagamento" >
+                                  <option value="0"></option>
+                                  <option value="pagseguro">PagSeguro</option>
+                                  <option value="transferencia">Transferência</option>
+                              </select>
+                          <!-- <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button> -->
+                          <!-- <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Concluir Pedido</button> -->
+                          <a class="btn btn-danger pull-right"><i class="fa fa-trash"></i> Deletar</a>
+                          <a href="externo_itens.html" class="btn btn-default pull-right"><i class="fa fa-reply"></i> voltar</a>
+                          <!-- <button id="enviando" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button> -->
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div></div>      
+</div>
