@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -21,46 +21,57 @@
     <link href="{{=URL('static','css/animate.css')}}" rel="stylesheet">
     <link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
 
-<style>
-    body {
-        background: #F7F7F7;
-    }    
-    
-    input.invalidinput {
-        margin: 0 !important;
-    }
-div.error_wrapper {
-    color: red;
-    text-align: left;
-    padding: 5px 0px 0px 4px;
-}      
-div#login {
-    margin: 20px auto;
-    max-width: 610px;
-    padding: 20px;
-}
-div#logo {
-    text-align: center;
-}
-.btn {
-    margin: 6px 0px 0px 6px;
-}
-
-
-</style>
- 
-  </head>
-
-  <body >
-
-    <div id="login">
+    <script src="{{=URL('static','js/jquery.js')}}"></script>
+    <script src="{{=URL('static','js/jquery.mask.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $("#auth_user_tipo_user__row").hide(); //esconde o campo TIPO DE CLIENTE para o cadastro externo
             
-            <div class='col-sm-3'></div>
-            <div class='col-sm-9' id="logo">        
-                <img src="{{=URL('static','images/logo-lojinha.png')}}" alt="">
-                <br>
-                <br>
-            </div>    
+            $('#auth_user_celular').mask("(99) 99999-9999");
+            $('#auth_user_fixo').mask("(99) 9999-9999");
+            $('#auth_user_cpf').mask('000.000.000-00');
+            $('#auth_user_cnpj_cpf').mask('00000000000000');
+            $('#auth_user_insc').mask('000000000000000');
+            $('#auth_user_cep').mask('00000.000');
+        });
+    </script> 
+
+    <style>
+        body {
+            background: #F7F7F7;
+        }    
+        
+        input.invalidinput {
+            margin: 0 !important;
+        }
+        div.error_wrapper {
+            color: red;
+            text-align: left;
+            padding: 5px 0px 0px 4px;
+        }      
+        div#login {
+            margin: 20px auto;
+            max-width: 610px;
+            padding: 20px;
+        }
+        div#logo {
+            text-align: center;
+        }
+        .btn {
+            margin: 6px 0px 0px 6px;
+        }
+    </style>
+</head>
+
+<body >
+    <!-- login -->
+    <div id="login">
+        <div class='col-sm-3'></div>
+        <div class='col-sm-9' id="logo">        
+            <img src="{{=URL('static','images/logo-lojinha.png')}}" alt="">
+            <br>
+            <br>
+        </div>    
         {{
         if request.args(0)=='login':
             if not 'register' in auth.settings.actions_disabled:
@@ -72,17 +83,16 @@ div#logo {
         pass
         =form
         }}
-        
-{{block page_js}}
-<script>
-    jQuery("#web2py_user_form input:visible:enabled:first").focus();
-{{if request.args(0)=='register':}}
-    web2py_validate_entropy(jQuery('#auth_user_password'),100);
-{{elif request.args(0)=='change_password':}}
-    web2py_validate_entropy(jQuery('#no_table_new_password'),100);
-{{pass}}
-</script>
-{{end page_js}}
-    </div>
+        {{block page_js}}
+            <script>
+            // jQuery("#web2py_user_form input:visible:enabled:first").focus();
+            // {{if request.args(0)=='register':}}
+            //     web2py_validate_entropy(jQuery('#auth_user_password'),100);
+            // {{elif request.args(0)=='change_password':}}
+            //     web2py_validate_entropy(jQuery('#no_table_new_password'),100);
+            // {{pass}}
+            </script>
+        {{end page_js}}
+    </div><!--fim do login-->
   </body>
 </html>

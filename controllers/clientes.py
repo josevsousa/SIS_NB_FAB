@@ -21,6 +21,12 @@ def listarClientes():
 			return bts
 
 	clientes.setvirtualfields(campos_virtual = Virtual())		
+
+
+
+
+
+
 	
 	return dict(formListar=clientes)
 

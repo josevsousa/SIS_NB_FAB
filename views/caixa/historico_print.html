@@ -146,18 +146,29 @@
 					<td class="col_1 tit codven">Cod Venda</td>
 					<td class="col_2 codvenresp">{{=historico_venda[0].codigoVenda}}</td>
 					<td class="col_3 tit">Representante</td>
-					<td class="col_4">{{=db(db.representantes.id == historico_venda[0].representante).select('matricula')[0].matricula}}</td>
+					<td class="col_4">
+					{{=historico_venda[0].representante}}
+					</td>
 				</tr>
 
 			</tbody>
 		</table>	
+
+		<!-- MONTAR UM QUERY DOS CLIENTES PRA ADD NA TAB O RESULTADO -->
+
 		<!-- o nome do cliente no historicoVendas esta no campo email' -->
-		{{cliente = db(Clientes.id == historico_venda[0].clienteEmail).select()}}
+		{{cliente = db(db.auth_user.id == historico_venda[0].clienteEmail).select()}}
 		<table class='table table-bordered'>
 			<tbody>
 				<tr>
 					<td class="col_1 tit">Cliente</td>
-					<td class="col_2 ">{{=cliente[0].nome}}</td>
+					<td class="col_2 ">{{
+							empresa = cliente[0].nome
+							if empresa != "":
+								empresa = "( %s )"%empresa
+							pass
+							="%s %s %s"%(cliente[0].first_name,cliente[0].last_name,empresa)
+						}}</td>
 					<td class="col_3 tit">Tel</td>
 					<td class="col_4">{{=cliente[0].fixo}}</td>
 				</tr>
@@ -180,7 +191,7 @@
 					<td class="col_4">{{=cliente[0].uf}}</td>
 				</tr>
 				<tr>
-					<td class="col_1 tit">CNPJ</td>
+					<td class="col_1 tit">CNPJ/CPF</td>
 					<td class="col_2">{{=cnpj_cpf_formt(cliente[0].cnpj_cpf).t()}}</td>
 					<td class="col_3 tit">IE</td>
 					<td class="col_4">{{=cliente[0].insc}}</td>

@@ -5,33 +5,47 @@ def etapa_1():
     if not session.parcelada:
         session.parcelada = " "
 
-    representante = ''   
-    if session.representante:
-        representante = db(db.representantes.id == session.representante ).select('nome')[0].nome
+
+
+    # pegando os representantes e os clientes da tabela auth_user 
+    repre = ["%s - %s %s"%(row.id, row.first_name, row.last_name) for row in db(db.auth_user.tipo_user == "Representante").select()]
+    clien = ["%s - %s %s"%(row.id, row.first_name, row.last_name) for row in db(db.auth_user.tipo_user == "Cliente").select()]
+
+    representante = '' 
+    cliente = ''  
+    if session.representante_id:
+        representante = session.representante
+        cliente = session.cliente
 
     # form cliente e representante
     form = SQLFORM.factory(
-        Field('Cliente',default=session.cliente, requires = IS_NOT_EMPTY(error_message = "Digite o nome do cliente"
-            ), widget = SQLFORM.widgets.autocomplete(
-            request, db.clientes.nome, limitby=(0,5), min_length=1)),
-        #     # Field('Cliente',default=session.cliente , requires = IS_IN_DB(db, Clientes.nome, error_message = 'Escolha um cliente'),
-            # Field('Cliente', default=session.cliente, requires = IS_IN_DB(db, Clientes.nome, error_message = 'Escolha um representante') ),
-            Field('Representante',default=representante , requires = IS_IN_DB(db, Representantes.nome, error_message = 'Escolha um representante'))
+        Field('Cliente', default=cliente , requires = IS_IN_SET(clien, error_message = 'Escolha um cliente')),
+        Field('Representante',default=representante , requires = IS_IN_SET(repre, error_message = 'Escolha um representante'))
         )
+ 
     if form.process().accepted:
-        session.cliente = form.vars.Cliente
-        session.representante = db(db.representantes.nome == form.vars.Representante ).select('id')[0].id
+        # pegar valores e guarda na sessao
+        cliente = form.vars.Cliente
+        session.cliente = cliente
+        cliente = cliente.split(' - ')
+        session.cliente_id = cliente[0]
+
+        representante = form.vars.Representante
+        session.representante = representante
+        representante = representante.split(' - ')
+        session.representante_id = representante[0]
+  
         #cria codigo da venda  
         if not session.codigo_venda:
             from datetime import datetime
             now = datetime.now()
             session.codigo_venda =  now.strftime("%y%m%d""%S%M%H")
             pass    
-        #session.flash = 'kkk'
+        
         redirect(URL('etapa_2?menu=caixa')) 
     
 
-    return dict(form=form)   
+    return dict(form=form)  
 
 
 # ------------------ ETAPA 2 ---------------------
@@ -122,7 +136,8 @@ def fecharVenda():
     index = index.split(";")
     # dados a gravar no db
     codigoVenda = session.codigo_venda
-    idCliente = db(Clientes.nome == '%s'%session.cliente ).select('id')[0].id
+    idCliente = session.cliente_id
+    # idCliente = db(Clientes.nome == '%s'%session.cliente ).select('id')[0].id
 
     tipoVenda = index[0]
     valorVenda = index[1]
@@ -130,7 +145,7 @@ def fecharVenda():
     totalParcelas = index[4]
 
     # pegar o nome do representante e gravar o id no historico
-    representante = session.representante
+    representante = session.representante_id
     enviarEmail = 'N'
     
      # Parcela, DataVencimento, Valor
@@ -255,7 +270,6 @@ def historico_print():
     cod_venda = request.vars.cod 
     # historico da venda ( venda referente ao cod_venda )
     historico_venda = db(Historico.codigoVenda == "%s"%cod_venda).select() 
-    print "[ -- %s -- ]"%historico_venda
     # ok ate aqui
     # itens da venda 
     itens_venda =  db(Itens.codigoVenda == "%s"%cod_venda).select('codigoIten','quantidade','produto','valorUnidade','valorTotal')

@@ -17,22 +17,20 @@ def index():
     elif auth.has_membership('pedido_via_site'):# se fizer parte desse grupo ja esta cadastrado
         redirect(URL('produtos','externo_itens'))#vai direto pra tela da tabela pra montar o pedido
     elif not auth.has_membership('admin'):# se nao for admin nao tiver em nenhum grupo esta em espera para autorizaçao
+        redirect(URL('cadastro','aguardando_permissao'))#completar o cadastro
         # erro de logica ANALIZARRRRRRR
         # id_sess = session.auth.user.id
         # id_clientes = db(db.clientes.id_web == id_sess).select('id_web')[0].id_web
         # id_clientes = int(db(db.clientes.id>0).select('id_web')[0]['id_web'])
         #  ?????? id_sesss = db(db.clientes.id_web == id_clientes)
-        id_sess = str(session.auth.user.id)
-        
-        print 'jkjkj'
-        cadastro = db(db.clientes.id_web == '%s'%8).select()
-        print 'aqui-------------------------0 [ %s ]'%cadastro
-        cadastro = cadastro[0]['id_web']
+        # id_sess = str(session.auth.user.id) #id do usuario 
+        # print id_sess,'------------------d'
+        # cadastro = db(db.clientes.id_web == 7).select()
+        # print cadastro,'------------------ww'
+        # cadastro = cadastro[0]['id_web']
 
-        print 'aqui-------------------------1'
         # clientess = db(db.clientes.id>0).select('id_web')
         # cadastrado = True
-        print "[%s][%s]"%(id_sess*2,cadastro*2)
         # for i in clientess:
         #     if i.id_web != id_sess:
         #         cadastrado = False
@@ -40,12 +38,10 @@ def index():
 
         # print cadastrado    
 
-        if cadastro != id_sess:
-            print 'aqui-------------------------3'
-            redirect(URL('cadastro','completar_cadastro'))#consultando o novo cliente
-        else:
-            print 'aqui-------------------------4'
-            redirect(URL('cadastro','aguardando_permissao'))#completar o cadastro
+        # if cadastro != id_sess:
+        #     redirect(URL('cadastro','completar_cadastro'))#consultando o novo cliente
+        # else:
+        #     redirect(URL('cadastro','aguardando_permissao'))#completar o cadastro
 
 
     from datetime import datetime, timedelta

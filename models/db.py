@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+OPERADORA = (' - ','TIM','OI','VIVO','CLARO','FIXO','NENHUMA')
+UF = ( "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO" )
+TIPO = ('Pessoa_física','Pessoa_jurídica')
+TIPO_USER = ('Cliente','Representante','Funcionario','Administrador','Indefinido')
+CATEGORIA = ('cliente','fornecedor','funcionario')
+TAMANHO = ('Único','P/M/G','P','M','G','GG')
 
 #########################################################################
 ## This scaffolding model makes your app work on Google App Engine too
@@ -58,15 +64,34 @@ service = Service()
 plugins = PluginManager()
 crud = Crud(db)
 
+# novos campos para o auth
+auth.settings.extra_fields['auth_user'] = [
+    Field('tipo_user', default='Indefinido', label='Tipo de usuário', requires = IS_IN_SET(TIPO_USER, error_message="Tipo inválido!!!")),
+    Field('tipo', label='Tipo', requires = IS_IN_SET(TIPO, error_message="Tipo inválido!!!")),
+    Field('nome',label='Nome da empresa'),#, requires=IS_NOT_EMPTY(error_message='Nome da empresa inválido!')
+    Field('celular', label='Celular'),
+    Field('fixo', label='Tel Fixo'),
+    Field('email',label='E-mail'),
+    Field('cnpj_cpf', label='CNPJ/CPF', requires = IS_CPF_OR_CNPJ(), unique=True),
+    Field('insc', label='INSC'),
+    Field('cep', label='CEP'),
+    Field('endereco', label='Endereço'),
+    Field('numero' ,label='Número'),
+    Field('uf', label='UF', requires = IS_IN_SET(UF, error_message="UF invalido!")),
+    Field('cidade', label='Cidade'),
+    Field('bairro', label='Bairro'),
+    Field('avatar', 'upload')
+    ]
 
 ## create all tables needed by auth if not custom tables
 auth.define_tables(username=False, signature=False)
 
 # ## configure email: 'logging' or    o codigo esta no  models/e_mail.py
 mail = auth.settings.mailer
-mail.settings.server = 'logging' or 'mail.seusite.com.br:587'
-mail.settings.sender = 'user'
-mail.settings.login = 'senha'
+mail.settings.server = 'smtp.nallubaby.com.br:587'
+mail.settings.sender = 'nallubaby.recibo@nallubaby.com.br '
+mail.settings.login = 'nallubaby.recibo@nallubaby.com.br:123recREC'
+mail.settings.tls = True
 
 
 
@@ -106,7 +131,7 @@ auth.settings.login_after_registration = True # faz o login do usuário após o 
 ## after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
 
-TAMANHO = ('Único','P/M/G','P','M','G','GG')
+
 
 #tabela produtos
 Produtos = db.define_table('produtos',
@@ -116,8 +141,8 @@ Produtos = db.define_table('produtos',
     Field('preco_produto_lojinha_backup','double',default=0.00, readable=False, writable=False),
     Field('dataGravado','datetime', default=request.now, label="Data", readable=False,  writable=False),
     Field('tamanho', label="Tamanho", default="P/M/G"),
-    Field('foto_produto','upload', label="Foto"),
     Field('descricao'),
+    Field('foto_produto','upload', label="Foto"),
     migrate ='produtos.table'   
     )
 db.produtos.tamanho.requires = IS_IN_SET(TAMANHO, error_message="Código obrigatório")
@@ -131,10 +156,7 @@ db.produtos.codigo_produto.requires = IS_NOT_IN_DB(db, db.produtos.codigo_produt
 #     )
 # db.autoCompletProdutos.nome_produto.widget = SQLFORM.widgets.autocomplete(request, db.produtos.nome_produto, limitby=(0,5), min_length=2)
 
-OPERADORA = (' - ','TIM','OI','VIVO','CLARO','FIXO','NENHUMA')
-UF = ( "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP", "TO" )
-TIPO = ('Pessoa_física','Pessoa_jurídica')
-CATEGORIA = ('cliente','fornecedor','funcionario')
+
 
 
 
@@ -188,7 +210,8 @@ Clientes = db.define_table('clientes',
 # db.clientes.email.requires = IS_EMAIL(error_message='Email inválido!!')
 
 # db.clientes.cnpj_cpf.requires = IS_CPF_OR_CNPJ(), IS_NOT_IN_DB(db, db.clientes.cnpj_cpf, error_message="CNPJ/ ou CPF já existe")
-# db.clientes.nome.requires = IS_NOT_IN_DB(db, db.clientes.nome, error_message = 'Usuario invalido')
+db.clientes.nome.requires = IS_NOT_EMPTY(error_message="Nome invalido") #nao pode ser em branco
+# db.clientes.nome.requires = IS_NOT_IN_DB(db, db.clientes.nome, error_message = 'Nome invalido')
 db.clientes.uf.requires = IS_IN_SET(UF, error_message="UF invalido!!!")
 db.clientes.operadora.requires = IS_IN_SET(OPERADORA, error_message="Operadora invalida!!!")
 db.clientes.tipo.requires = IS_IN_SET(TIPO, error_message="Tipo inválido!!!") 

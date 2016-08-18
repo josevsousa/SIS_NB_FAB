@@ -1,0 +1,14 @@
+{{extend 'layoutLojinha.html'}}
+<script src="{{=URL('static','js/jquery.mask.js')}}"></script>
+<script>
+	$(document).ready(function(){
+		$('#auth_user_celular').mask("(99) 99999-9999");
+		$('#auth_user_fixo').mask("(99) 9999-9999");
+		$('#auth_user_cpf').mask('000.000.000-00');
+		$('#auth_user_cnpj_cpf').mask('00000000000000');
+		$('#auth_user_insc').mask('000000000000000');
+		$('#auth_user_cep').mask('00000.000');
+	});
+</script>
+
+{{=cadastro}}

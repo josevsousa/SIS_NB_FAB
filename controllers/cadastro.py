@@ -42,4 +42,49 @@ def cnpj():
 		session.existe_cnpj = True
 
 		
+def tela_cadastro_cliente():
+	query = db(db.auth_user.tipo_user == 'Cliente')
+	cadastros = SQLFORM.grid(query,
+	headers={'auth_user.tipo':'Tipo','auth_user.email' : 'E-mail','auth_user.first_name':'Nome cliente'},
+	fields = [db.auth_user.tipo_user, db.auth_user.tipo, db.auth_user.first_name,db.auth_user.nome,db.auth_user.celular,db.auth_user.fixo,db.auth_user.email], 
+	searchable=False,
+	create=True,
+	csv=False,
+	paginate=20)
+	
+	return dict(cadastro=cadastros)
 
+def tela_cadastro_administradores():
+	query = db(db.auth_user.tipo_user == 'Administrador')
+	cadastros = SQLFORM.grid(query,
+	headers={'auth_user.tipo':'Tipo','auth_user.email' : 'E-mail','auth_user.first_name':'Nome cliente'},
+	fields = [db.auth_user.tipo_user, db.auth_user.tipo, db.auth_user.first_name,db.auth_user.nome,db.auth_user.celular,db.auth_user.fixo,db.auth_user.email], 
+	searchable=False,
+	create=True,
+	csv=False,
+	paginate=20)
+	
+	return dict(cadastro=cadastros)
+
+def tela_cadastro_representante():
+	query = db(db.auth_user.tipo_user == 'Representante')
+	cadastros = SQLFORM.grid(query,
+	headers={'auth_user.id':'Código','auth_user.tipo':'Tipo','auth_user.email' : 'E-mail','auth_user.first_name':'Nome cliente'},
+	fields = [db.auth_user.id,db.auth_user.tipo, db.auth_user.first_name,db.auth_user.nome,db.auth_user.celular,db.auth_user.fixo,db.auth_user.email], 
+	searchable=False,
+	create=True,
+	csv=False,
+	paginate=20)
+	
+	return dict(cadastro=cadastros)
+
+def tela_cadastro_funcionario():
+	query = db(db.auth_user.tipo_user == 'Funcionario')
+	cadastros = SQLFORM.grid(query,
+	headers={'auth_user.tipo':'Tipo','auth_user.email' : 'E-mail','auth_user.first_name':'Nome cliente'},
+	fields = [db.auth_user.tipo_user, db.auth_user.tipo, db.auth_user.first_name,db.auth_user.nome,db.auth_user.celular,db.auth_user.fixo,db.auth_user.email], 
+	searchable=False,
+	create=True,
+	csv=False,
+	paginate=20)
+	return dict(cadastro=cadastros)

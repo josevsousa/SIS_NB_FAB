@@ -56,10 +56,13 @@ if 'auth' in globals():
                     (T('Caixa'), False, URL('caixa', 'etapa_1?menu=caixa'), []),
                     (T('historico'), False, URL('caixa', 'historico?menu=caixa'), [])
                   ]),
-                  (T('Clientes'), False, URL('clientes', 'listarClientes?menu=clientes'), []),
-                  (T('Funcionários'), False, URL('funcionarios', 'listarFuncionarios?menu=funcionarios'), []),
+                  (T('Cadastros'),False, None, [
+                    (T('Clientes'), False, URL('cadastro', 'tela_cadastro_cliente?menu=cadastro'), []),
+                    (T('Representantes'), False, URL('cadastro', 'tela_cadastro_representante?menu=cadastro'), []),
+                    (T('Funcionários'), False, URL('cadastro', 'tela_cadastro_funcionario?menu=cadastro'), []),
+                    (T('Administradores'), False, URL('cadastro', 'tela_cadastro_administradores?menu=cadastro'), [])
+                  ]),
                   (T('Produtos'), False, URL('produtos', 'listarProdutos?menu=produtos'), []),
-                  (T('Representantes'), False, URL('representantes', 'listarRepresentantes?menu=representantes'), []),
                   
                   (T('Operacional'),False, None, [
                     (T('Separar itens venda'), False, URL('pedidos', 'abertos?menu=operacional'), [])

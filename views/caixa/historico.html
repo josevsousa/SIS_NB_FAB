@@ -185,11 +185,17 @@
 			{{if venda.deletado == False:}}
 				<tr>
 					<td>{{=venda.codigoVenda}}</td>
-					<td>{{=db(db.representantes.id == venda.representante ).select('nome')[0].nome }}</td>
+					<td>{{ 
+							query = db(db.auth_user.id == venda.representante)
+							="%s %s"%(query.select('first_name')[0].first_name,query.select('last_name')[0].last_name)
+						}}</td>
 					<td>{{=venda.tipoVenda}}</td>
 					<td>{{=double_real(venda.valorVenda).real()}}</td>
 					<td>{{=double_real(venda.valorDesconto).real()}}</td>
-					<td>{{=db(Clientes.id == venda.clienteEmail).select('nome')[0].nome}}</td>
+					<td>{{
+							query = db(db.auth_user.id == venda.clienteEmail)
+							= "%s %s"%(query.select('first_name')[0].first_name,query.select('last_name')[0].last_name)
+						}}</td>
 					<td>{{=venda.dataVenda}}</td>
 				{{if auth.has_membership('admin'):}}	
 					<td class="btDD">

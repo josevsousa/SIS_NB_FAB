@@ -1,3 +1,108 @@
 {{extend 'layoutNthema.html'}}
+<!-- Bootstrap -->
+<link href="{{=URL('static','gentelella-master/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="{{=URL('static','gentelella-master/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="{{=URL('static','gentelella-master/build/css/custom.min.css')}}" rel="stylesheet">
 
-<h1>Estamos consultando seu cadastro, enviamos um email apos aprovação</h1>
+<!-- Datatables -->
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css')}}" rel="stylesheet">
+
+<style>
+img#barcode {
+    border: 1px solid;
+    padding: 0px 6px;
+    border-radius: 4px;
+    height: 32px;
+    margin-left: 2px;
+}
+	
+</style>
+
+<!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Tela de análise de cadastro <small> estamos processando seus dados cadastrais</small></h2>
+
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div class="col-md-8 col-lg-8 col-sm-7">
+                      <!-- blockquote -->
+                      <blockquote>
+                        <p>Ola! <b>{{='%s %s'%(session.auth.user.first_name,session.auth.user.last_name)}}</b> seja muito bem vinda a NalluBaby.</p>
+                        <!-- <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer> -->
+                      </blockquote>
+
+                      <blockquote class="blockquote-reverse">
+                        <p>Estamos processando seu cadastro e analisando os seus dados para liberar o acesso a nossa tabela de produtos. Onde você poderá navegar nos itens da tabela, montar seu pedido e finalizar sua compra  escolhendo a forma de pagamento que você trabalha! por gentilesa verifique seu e-mail onde enviaremos o aviso de acesso logo apos sua aprovação.</p>
+                        <p>Obrigado</p>
+                        <footer>Sistema de avaliação <cite title="Source Title"> Em andamento...</cite>
+                        </footer>
+                      </blockquote>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-5">
+                      <h1>Em caso de dúvidas!</h1>
+                      <h2>(83) 3322-8273</h2>
+                      <h3>nallu.paiva@gmail.com</h3>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                      <div class="row">
+                        <!-- accepted payments column -->
+                        <div class="col-xs-6">
+                          <p class="lead">Formas de pagamento:</p>
+                          <img src="{{=URL('static','gentelella-master/production/images/visa.png')}}" alt="Visa">
+                          <img src="{{=URL('static','gentelella-master/production/images/mastercard.png')}}" alt="Mastercard">
+                          <img id="barcode" src="{{=URL('static','gentelella-master/production/images/barcode.png')}}" alt="barcode">
+                          <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                            Ao finalizar seu pedido escolha a opção de pagamento em transferencia bancária e ganhe 5% de desconto! Aproveite.
+                          </p>
+                        </div>
+
+                      </div>
+                      <!-- /.row -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+
+
+<!-- Bootstrap -->
+<script src="{{=URL('static','gentelella-master/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- Custom Theme Scripts -->
+<script src="{{=URL('static','gentelella-master/build/js/custom.min.js')}}"></script>
+
+    <!-- Datatables -->
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/jszip/dist/jszip.min.js')}}"></script>
+    <script src="{{=URL('static','gentelella-master/vendors/pdfmake/build/pdfmake.min.js')}}"></script>
+    

@@ -8,6 +8,23 @@
     $('.form_etapa-1 form input[type=submit]').removeClass('btn-primary').addClass('btn-success').val('Adicione os Itens');
     $('.form_etapa-1').delay(100).fadeIn(300) //esconder a transicao no form
 
+
+    var cliente = "{{=session.cliente}}";
+    
+    // ja add o cliente?
+    if (cliente == "None") {
+      console.log("sem cliente")
+    } else {
+      console.log("tem cliente")
+    } 
+
+    $("#enviar").on('click',function(){
+      var c = cliente.value;
+      var r = representante.value;
+      console.log(c+r)
+    })
+
+
   });//fim do jquary.document
 </script>
 <style>
@@ -48,7 +65,11 @@
     z-index: 0;
     border-radius: 4px;
   }
- 
+ .error{
+      border-color: red;
+    color: red;
+    background: #FDF3F3;
+ }
 </style>
 
 <div class="container">
@@ -69,7 +90,7 @@
   <div class="row">
     <div class="col-md-7">
       <div class="form_etapa-1 " style="display:none">
-        {{=form}}
+      {{=form}}
       </div> 
     </div>
     <div class="col-md-5">
