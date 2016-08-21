@@ -201,7 +201,6 @@ def add_item():
 		session.codigo_venda =  now.strftime("%y%m%d%S%M%H")
 		session.data_venda = now.strftime("%d/%m/%Y")
 
-
 	#get
 	index = request.vars.transitory
 	index = index.split(';')
@@ -226,6 +225,7 @@ def add_item():
 		itens.append({"cod":codigoPeca,"qtd":quantidade, "obs":obs})
 
 	session.itens = itens
+	redirect(URL('externo_itens'))
 
 def excluir_item():
 	codigo = request.vars.transitory

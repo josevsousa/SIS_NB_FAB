@@ -62,6 +62,8 @@ if 'auth' in globals():
                     (T('Funcionários'), False, URL('cadastro', 'tela_cadastro_funcionario?menu=cadastro'), []),
                     (T('Administradores'), False, URL('cadastro', 'tela_cadastro_administradores?menu=cadastro'), [])
                   ]),
+                  (T('Clientes'), False, URL('clientes', 'listarClientes?menu=clientes'), []),
+                  (T('Representantes'), False, URL('representantes', 'listarRepresentantes?menu=representantes'), []),
                   (T('Produtos'), False, URL('produtos', 'listarProdutos?menu=produtos'), []),
                   
                   (T('Operacional'),False, None, [

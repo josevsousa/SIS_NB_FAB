@@ -109,7 +109,7 @@
 											<tr>
 												<td style="display:none">{{=pedido.id}}</td>
 												<td>{{=pedido.codigoVenda}}</td>
-												<td>{{=db(Clientes.id == pedido.clienteEmail).select('nome')[0].nome}}</td>
+												<td>{{#=db(Clientes.id == pedido.clienteEmail).select('nome')[0].nome}}</td>
 												<td>{{=(pedido.dataVenda).strftime('%d/%m/%Y as %H:%M:%S')}}{{=atrazo}}</td>
 												<td>{{=pedido.status_venda}}</td>
 												{{if (pedido.volume != None) and (pedido.volume != 0):}}

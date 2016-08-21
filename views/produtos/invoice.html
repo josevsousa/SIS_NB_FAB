@@ -86,6 +86,27 @@ span#codigo_view {
 select#formaPagamento {
     width: 32%;
 }
+address.banco {
+    float: left;
+    margin-right: 21px;
+        font-size: larger;
+}
+.alert-warning {
+    color: #FFFFFF;
+    background-color: rgb(255, 191, 0);
+    font-size: larger;
+    border-color: rgba(255, 199, 111, 0.88);
+    font-weight: 600;
+}
+img#barcode {
+    border: 1px solid;
+    padding: 0 8px;
+    border-radius: 3px;
+    height: 32px;
+}
+.col-xs-6.view_valor {
+    text-align: center;
+}
 </style>
 
 <div>
@@ -128,7 +149,7 @@ select#formaPagamento {
                         <div class="col-xs-12 invoice-header">
                           <h1>
                                           <i class="fa fa-globe"></i> Meu Pedido.
-                                          <small class="pull-right">Date: {{=session.data_venda}}</small>
+                                          <small class="pull-right">Data: {{=session.data_venda}}</small>
                                       </h1>
                         </div>
                         <!-- /.col -->
@@ -150,10 +171,10 @@ select#formaPagamento {
                           Para:
                           <address>
                                           <strong>{{="%s %s"%((auth.user.first_name).upper(), (auth.user.last_name).upper())}}</strong>
-                                          <br>795 Freedom Ave, Suite 600
-                                          <br>New York, CA 94107
-                                          <br>Phone: 1 (804) 123-9876
-                                          <br>Email: jon@ironadmin.com
+                                          <br>{{=auth.user.endereco}}, {{=auth.user.bairro}} {{=auth.user.numero}}
+                                          <br>{{=auth.user.cidade}}, {{=auth.user.uf}} {{=auth.user.cep}}
+                                          
+                                          <br>Email: {{=auth.user.email}}
                                       </address>
                         </div>
                         <!-- /.col -->
@@ -197,7 +218,7 @@ select#formaPagamento {
                       <div class="row">
                         <!-- accepted payments column -->
                         <div class="col-xs-6">
-                          <p class="lead">Formas de pagamento:</p>
+                          <!-- <p class="lead">Formas de pagamento:</p> -->
                          <!--  <p>
                               <label>Escolha aqui :</label>
                             
@@ -207,16 +228,15 @@ select#formaPagamento {
                                   <option value="transferencia">Transferência</option>
                               </select>
                           </p> -->
-                          <img src="{{=URL('static','gentelella-master/production/images/visa.png')}}" alt="Visa">
-                          <img src="{{=URL('static','gentelella-master/production/images/mastercard.png')}}" alt="Mastercard">
-                          <img src="{{=URL('static','gentelella-master/production/images/american-express.png')}}" alt="American Express">
-                          <img src="{{=URL('static','gentelella-master/production/images/paypal.png')}}" alt="Paypal">
+                          <!-- <img src="{{=URL('static','gentelella-master/production/images/visa.png')}}" alt="Visa"> -->
+                          <!-- <img src="{{=URL('static','gentelella-master/production/images/mastercard.png')}}" alt="Mastercard"> -->
+                          <img src="{{=URL('static','gentelella-master/production/images/todos_animado_550_50.gif')}}" alt="barcode">
                           <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
                             Escolha sua forma de pagamento campo acima! Ganhe 5% de desconto escolhendo a opção de pagamento por transferência bancaria.
                           </p>
                         </div>
                         <!-- /.col -->
-                        <div class="col-xs-6">
+                        <div class="col-xs-6 view_valor">
                           <p class="lead">Data venda {{=session.data_venda}}</p>
                           <div class="table-responsive">
             <div class="">
@@ -254,6 +274,17 @@ select#formaPagamento {
                       <!-- this row will not appear when printing -->
                       <div class="row no-print">
                         <div class="col-xs-12">
+                          <!-- INICIO FORMULARIO BOTAO PAGSEGURO -->
+<form action="https://pagseguro.uol.com.br/checkout/v2/cart.html?action=add" method="post" onsubmit="PagSeguroLightbox(this); return false;">
+<!-- NÃO EDITE OS COMANDOS DAS LINHAS ABAIXO -->
+<input type="hidden" name="itemCode" value="FE40EB474343A12CC4B61FB799260BB2" />
+<input type="hidden" name="iot" value="button" />
+<input type="image" src="https://stc.pagseguro.uol.com.br/public/img/botoes/pagamentos/209x48-comprar-assina.gif" name="submit" alt="Pague com PagSeguro - é rápido, grátis e seguro!" />
+</form>
+<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+<!-- FINAL FORMULARIO BOTAO PAGSEGURO -->
+                        </div>
+                        <div class="col-xs-12">
                             <label>Pagar com :</label>
                               <select class="btn btn-default" name="formaPagamento" id="formaPagamento" >
                                   <option value="0"></option>
@@ -266,9 +297,61 @@ select#formaPagamento {
                           <a href="externo_itens.html" class="btn btn-default pull-right"><i class="fa fa-reply"></i> voltar</a>
                           <!-- <button id="enviando" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button> -->
                         </div>
+                        <div class="col-xs-12">
+                          <h3>Bancos convêniados com a NalluBaby</h3>
+                        </div>
+                        <div class="col-xs-12">
+                          <h5>Qualquer duvida referênte a essas contas ligue para (83) 3322-8273</h5>
+                        </div> 
+                        <div class="col-xs-12" id="transferencia">
+                          <div class="col-sm-4 invoice-col">
+                            <address class="banco">
+                                <strong>CAIXA ECONÔMICA</strong>
+                                <br>​<b>ag</b>-2221 <b>op</b>-001
+                                <br>​<b>ct</b>- 933-0
+                            </address>
+                             
+                              <address class="banco">
+                                  <strong>BANCO DO BRASIL</strong>
+                                  <br>​<b>ag</b>-2221 <b>op</b>-001
+                                  <br>​<b>ct</b>- 933-0
+                              </address>
+                          </div>
+
+                          <div class="col-sm-4 invoice-col">
+                          <p>Por gentileza, nos envie para o e-mail nallu.paiva@gmail.com o valor junto a data/hora da trasferência para que possamos liberar o envio do seu pedido. Obrigado!</p>
+                          </div>
+                          <div class="col-sm-4 invoice-col">
+                          <button type="button" class="btn btn-default btn-lg btn-block">Finalizar Pedido</button>
+                          </div>
+                        </div>
                       </div>
                     </section>
                   </div>
                 </div>
               </div></div>      
 </div>
+<!-- Declaração do formulário -->  
+<form target="pagseguro" method="post"   
+    action="https://pagseguro.uol.com.br/v2/checkout/cart.html?action=add">  
+      
+    <!-- Campos obrigatórios -->  
+    <input type="hidden" name="receiverEmail" value="josev@josev.com.br">  
+    <input type="hidden" name="currency" value="BRL">  
+      
+    <!-- Itens do pagamento (ao menos um item é obrigatório) -->  
+    <input type="hidden" name="itemId" value="0001">  
+    <input type="hidden" name="itemDescription" value="Notebook Prata">  
+    <input type="hidden" name="itemAmount" value="24300.00">  
+    <input type="hidden" name="itemQuantity" value="1">  
+    <input type="hidden" name="itemWeight" value="1000">  
+      
+    <!-- Código de referência do pagamento no seu sistema (opcional) -->  
+    <input type="hidden" name="reference" value="REF1234">  
+      
+    <!-- submit do form (obrigatório) -->  
+    <input type="image" name="submit"   
+    src="https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/120x53-pagar.gif"   
+    alt="Pague com PagSeguro">  
+      
+</form>  
